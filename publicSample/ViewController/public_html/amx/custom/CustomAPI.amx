@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Custom API Test" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+            <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home"
+                               actionListener="#{pageFlowScope.customApiBacking.resetForm}">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}"
+                                         type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}"
+                                         type="action"/>
+            </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl2"
+                                      inlineStyle="border-width:0px; padding-left:5px;padding-right:5px;"
+                                      halign="center" scrollPolicy="scroll" layout="vertical">
+                        <amx:selectOneButton id="sob1" valueChangeListener="#{pageFlowScope.customApiBacking.onTabMenuSelect}"
+                         value="#{pageFlowScope.customApiBacking.tabMenuSelection}"
+                                             inlineStyle="color:#003152; font-size:large; heigtht:40px">
+        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+        <amx:selectItem label="Sample" id="si4" value="content"/>
+      </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.customApiBacking.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="start" layout="vertical">
+                            <amx:spacer height="5" id="s1"/>
+                            <amx:outputText value="About" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer height="5" id="s2"/>
+                            <amx:outputHtml value="A custom API in Oracle MCS is a declaratively built, custom-made REST interface that&lt;p>&lt;ul>&lt;li>allows mobile application developers to expose data queried from remote REST or SOAP services to mobile clients&lt;/li>                     &lt;li>allows the integration of calls to multiple MCS platform APIs into a single API that is accessible from mobile clients&lt;/li>                     &lt;li>allows exposing MCS server side functionality (like sending push notifications) to the mobile client.&lt;/li>&lt;p>                     This view uses the MAF MCS Utility custom API service proxy to invoke a custom API exposed on a MBE. JSON responses returned from a request are displayed as is (unformatted). Required MCS HTTP header information like 'Oracle-Mobile-Backend-Id' and 'Authorization' are automatically added.&lt;p>                     Any http header specific to the custom REST API needs to be added in this form. For this, add values to the key name and key value fields and press the add button. &lt;p>                     While the MAF MCS Utility library supports binary and string responses, this public sample supports JSON responses only."
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                            id="ohtml1"/>
+                            <amx:spacer height="5" id="s11"/>                            
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content"
+                                              inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+                            <amx:outputText value="Custom API Tester Form" id="o12"
+                                styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer id="s6" height="5"/>
+                            <amx:panelFormLayout id="pfl1" labelPosition="topStart" showHorizontalDividers="false"
+                                                 labelWidth="250" inlineStyle="padding-left:5px; padding-right:5px;">
+                                <amx:inputText label="URI" id="it1"
+                                               hintText="Provide full custom API URI with a leading slash '/' character"
+                                               value="#{pageFlowScope.customApiBacking.uri}"/>
+                                <amx:selectOneChoice label="HTTP method" id="soc1"
+                                                     value="#{pageFlowScope.customApiBacking.httpMethod}">
+                                    <amx:selectItem id="si1" label="Get" value="GET"/>
+                                    <amx:selectItem id="si2" label="Put" value="PUT"/>
+                                    <amx:selectItem id="si5" label="Post" value="POST"/>
+                                    <amx:selectItem id="si6" label="Delete" value="DELETE"/>
+                                </amx:selectOneChoice>
+                                <amx:inputText label="Payload (Post/Put Only)" id="it2"
+                                               hintText="Add JSON payload string"
+                                               value="#{pageFlowScope.customApiBacking.payload}"
+                                               rendered="#{pageFlowScope.customApiBacking.showPayloadOption}"
+                                               inputType="text" rows="3"/>
+                                <amx:panelLabelAndMessage label="HTTP Header Parameters" id="plam1">
+                                    <amx:spacer id="s4" height="8"/>
+                                    <amx:panelGroupLayout id="pgl4" layout="vertical">
+                                        <amx:panelFormLayout id="pfl2" maxColumns="3" rows="1" labelPosition="topStart">
+                                            <amx:inputText label="HTTP Header Name" id="it3"
+                                                           hintText="Add parameter name"
+                                                           value="#{pageFlowScope.customApiBacking.headerKeyName}"/>
+                                            <amx:inputText label="HTTP Heaer Value" hintText="Add parameter value"
+                                                           id="it4"
+                                                           value="#{pageFlowScope.customApiBacking.headerKeyValue}"/>
+                                            <amx:panelLabelAndMessage label="" id="plam2">
+                                                <amx:commandButton text="Add" id="cb1"
+                                                                   actionListener="#{pageFlowScope.customApiBacking.addHeaderParameter}"/>
+                                            </amx:panelLabelAndMessage>
+                                        </amx:panelFormLayout>
+                                        <amx:spacer id="s5" height="5"/>
+                                        <amx:panelLabelAndMessage label="HTTP Header Parameters" id="plam5">
+                                            <amx:outputText value="#{pageFlowScope.customApiBacking.printedMap}" id="ot3"
+                                                            inlineStyle="word-break: break-all; max-width:80%; text-align:left; padding-left:3px; padding-right:3px;"/>
+                                            <amx:spacer id="s7" height="5"/>
+                                        </amx:panelLabelAndMessage>
+                                    </amx:panelGroupLayout>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="" id="plam3">
+                                    <amx:panelGroupLayout id="pgl6" layout="horizontal" halign="end">
+                                        <amx:commandButton text="Invoke Custom API" id="cb4"
+                                                           actionListener="#{pageFlowScope.customApiBacking.invokeCustomApiOnDC}"/>
+                                        <amx:spacer id="s3" width="5" height="20"/>
+                                        <amx:commandButton text="Clear Form" id="cb3"
+                                                           actionListener="#{pageFlowScope.customApiBacking.resetForm}"/>
+                                    </amx:panelGroupLayout>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:panelGroupLayout id="pgl7" layout="vertical" scrollPolicy="scroll"
+                                                  inlineStyle="height:150px;">
+                                <amx:spacer id="s8" height="7"/>
+                                <amx:panelFormLayout id="pfl3" labelPosition="topStart">
+                                    <amx:panelLabelAndMessage label="Custom API Response" id="plam4">
+                                        <amx:outputText value="#{bindings.customAPIResponse.inputValue}" id="ot2"
+                                                        inlineStyle="word-break: break-all; max-width:80%; text-align:left;"/>
+                                    </amx:panelLabelAndMessage>
+                                </amx:panelFormLayout>
+                            </amx:panelGroupLayout>
+                            <amx:spacer id="s9" height="5"/>
+                            <amx:panelGroupLayout id="pgl3" inlineStyle="margin-left:20px; margin-right:20px;">
+                                <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                                                inlineStyle="color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+                                <amx:spacer id="s10" height="5"/>
+                                <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                                                inlineStyle="color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                            </amx:panelGroupLayout>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

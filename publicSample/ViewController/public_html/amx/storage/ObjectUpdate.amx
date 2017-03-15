@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Update Object" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+             <amx:commandButton id="cb2" text="Collection Details" action="return" shortDesc="Return to Collection Details">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+         </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+            <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" layout="vertical" scrollPolicy="scroll" inlineStyle="width:100%">
+                    <amx:selectOneButton id="sob1"
+                                         valueChangeListener="#{pageFlowScope.objectUpdateBacking.onTabMenuSelect}"
+                                         value="#{pageFlowScope.objectUpdateBacking.tabMenuSelection}"
+                                         inlineStyle="color:#003152; font-size:large; heigtht:40px">
+                        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+                        <amx:selectItem label="Sample" id="si4" value="content"/>
+                    </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.objectUpdateBacking.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer height="7" id="s2"/>
+                            <amx:outputHtml value="This view shows the meta-data information for the selected MCS collection object. You can update the collection object with new binary content by selecting a document from the list at the bottom of the page and pressing the Update button. &lt;p>                      The sample files are deployed with the application (just in case you wonder where they come from) and help simulating content upload to MCS from a mobile device"
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                            id="ohtml1"/>
+                            <amx:spacer height="7" id="s3"/>
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content" inlineStyle="margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer height="7" id="s5"/>
+                            <amx:outputText value="Collection Object Metadata" id="o4"
+                                            styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:panelFormLayout id="pfl1" labelPosition="start" fieldHalign="end"
+                                                 showHorizontalDividers="false" labelWidth="150">
+                                <amx:panelLabelAndMessage id="plam2" label="Id">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.objectId}" id="ot2"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Display Name" id="plam3">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.displayName}" id="ot3"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Content type" id="plam8">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.contentType}" id="ot4"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Content length (bytes)" id="plam10">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.contentLength}" id="ot5"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Created on" id="plam4">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.createdOn}" id="ot6"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Created by" id="plam5">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.createdBy}" id="ot7"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Modified on" id="plam6">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.modifiedOn}" id="ot8"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Modified by" id="plam7">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.modifiedBy}" id="ot9"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Etag" id="plam9">
+                                    <amx:outputText value="#{pageFlowScope.objectUpdateBacking.ETag}" id="ot10"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:spacer height="7" id="s16"/>
+                            <amx:outputText value="Update Collection Object" id="o5"
+                                            styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer height="7" id="s6"/>
+                            <amx:panelFormLayout id="pfl2" labelPosition="start" fieldHalign="end"
+                                                 showHorizontalDividers="false" labelWidth="150">
+                                <amx:selectOneRadio label="Select file" id="sor1"
+                                                    value="#{pageFlowScope.objectUpdateBacking.documentName}">
+                                    <amx:selectItem id="si1" label="MS Word Document" value="doc.doc"/>
+                                    <amx:selectItem id="si2" label="Adobe Document" value="pdf.pdf"/>
+                                    <amx:selectItem id="si6" label="MS Powerpoint Document" value="ppt.pptx"/>
+                                    <amx:selectItem id="si7" label="MP4 Video" value="mp4.mp4"/>
+                                    <amx:selectItem id="si5" label="Image" value="png.png"/>
+                                </amx:selectOneRadio>
+                                <amx:panelLabelAndMessage label="Press button ... " id="plam1">
+                                    <amx:commandButton text="Update Object" id="cb1"
+                                                       shortDesc="Update selected object with file content"
+                                                       actionListener="#{pageFlowScope.objectUpdateBacking.uploadFileToMCS}"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:panelGroupLayout id="pgl3"
+                                                  inlineStyle="border-width:0px; width:80%; margin-left:20px; margin-right:20px;"
+                                                  scrollPolicy="scroll">
+                                <amx:spacer id="si9" height="5"/>
+                                <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                                                inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+                                <amx:spacer id="s10" height="5"/>
+                                <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                                                inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                                <amx:outputText value="#{pageFlowScope.objectUpdateBacking.displaysErrorMessage}" id="oti7"
+                                                inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                            </amx:panelGroupLayout>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

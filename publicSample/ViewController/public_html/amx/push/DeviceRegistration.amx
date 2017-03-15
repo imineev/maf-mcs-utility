@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Device Registration" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+            <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}"
+                                         type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}"
+                                         type="action"/>
+            </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl5" scrollPolicy="scroll"
+                                      inlineStyle="border-width:0px; width:100%; padding-left:5px;">
+                    <amx:panelGroupLayout id="pgl1" inlineStyle="border-width:0px; width:100%; padding-left:5px;"
+                                          halign="start">
+                        <amx:spacer height="5" id="s1"/>
+                        <amx:outputText value="Prerequisites" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+                        <amx:spacer height="5" id="s2"/>
+                        <amx:outputHtml value="This view allows you to register the application with Oracle MCS to receive messages queued in MCS. As a pre-requisite, the application needs to be registered with Google or Apple to receive push notifications. The device token received from Apple and Google is also displayed on this view, as well as the raw payload of any subsequently received push notification. Before you test this functionality, ensure the following : &lt;p>&lt;ul> &lt;li>Provide the Google Sender Id (for Android), application package and name (for Android), and the Application Bundle id (for Apple) in the application preferences&lt;/li>                     &lt;li>For Apple deployments,  change the 'Application Bundle Id' property in the deployment profile. For this choose 'Application', then 'Application Properties' in the JDeveloper menu. Select the iOS deployment profile for edit and choose 'iOS Options'. After changing the bundle Id, deploy and sign the application with a push enabled p12 certificate&lt;/li>                      &lt;li>Set 'Enable Receiving Push Notifications' in the application preferences to true lt;/li>&lt;li>Create 'Client Applications' in MCS MBE for iOS and Android and provide the p12 certificate (no password) and bundle Id for iOS and the Google sender Id for Android.&lt;/li>                     &lt;li>Configure this sample application's preferences with the MCS client application IDs for Android and iOS&lt;/li>&lt;/ul>&lt;p> After enabling push notification for this application, you need to restart the MAF sample for the application lifecycle listener to register the application with the service providers."
+                                        inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                        id="ohtml1"/>
+                    </amx:panelGroupLayout>
+                    <amx:panelGroupLayout id="pgl2" inlineStyle="border-width:0px; width:90%; padding-left:5px;"
+                                          scrollPolicy="scroll" layout="vertical">
+                        <amx:spacer id="s5" height="8"/>
+                        <amx:outputText value="Registration Messages" id="ot7"
+                                        styleClass="adfmf-outputText-sectionTitle"
+                                        inlineStyle="text-align:start; padding-left:5px;"/>
+                        <amx:spacer id="s6" height="8"/>
+                        <amx:panelFormLayout id="pfl1" labelPosition="topStart" showHorizontalDividers="false"
+                                             labelWidth="250"
+                                             inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;"
+                                             fieldHalign="start">
+                            <amx:panelLabelAndMessage label="Device Token" id="plam2"
+                                                      inlineStyle="padding-left:5px; padding-right:5px;">
+                                <amx:outputText value="#{applicationScope.deviceToken}" id="ot2"
+                                                inlineStyle="word-break: break-all"/>
+                            </amx:panelLabelAndMessage>
+                            <amx:panelLabelAndMessage label="Device Registration Response" id="plam4"
+                                                      inlineStyle="padding-left:5px; padding-right:5px;">
+                                <amx:outputText id="oh1" value="#{applicationScope.mcsregistrationString}"
+                                                inlineStyle="word-break: break-all"/>
+                            </amx:panelLabelAndMessage>
+                        </amx:panelFormLayout>
+                        <amx:spacer id="s30" height="10"/>
+                        <amx:outputText value="Register / Unregister Device with / from MCS" id="ot18"
+                                        styleClass="adfmf-outputText-sectionTitle" inlineStyle="padding-left:5px;"/>
+                        <amx:panelGroupLayout id="pgl4" layout="vertical">
+                            <amx:spacer id="s18" height="7"/>
+                            <amx:panelGroupLayout id="pgl9"
+                                                  inlineStyle="#{pageFlowScope.deviceRegistrationBacking.showNotRegisteredMessage} background-color:#e7e7e7; margin-left:20px; margin-right:20px;border-width:0px;"
+                                                  layout="horizontal" halign="center">
+                                <amx:outputText value="This MAF application is not configured to receive Push Notifications"
+                                                id="ot4" inlineStyle="color:#525252;"/>
+                            </amx:panelGroupLayout>
+                            <amx:panelGroupLayout id="pgl8"
+                                                  inlineStyle="#{pageFlowScope.deviceRegistrationBacking.showRegistrationButtons} border-width:0px; background-color:#e7e7e7; margin-left:20px; margin-right:20px;"
+                                                  layout="horizontal" halign="center">
+                                <amx:commandButton text="Register Device" id="cmb4"
+                                                   shortDesc="Registers MAF app and device with MCS"
+                                                   icon="/images/register.png" iconPosition="leading"
+                                                   actionListener="#{pageFlowScope.deviceRegistrationBacking.registerDeviceToMCS}"
+                                                   inlineStyle="width:150px;"/>
+                                <amx:spacer id="s3" width="10"/>
+                                <amx:commandButton text="Unregister Device" id="cmb5"
+                                                   shortDesc="Unregisters MAF app and device from MCS"
+                                                   icon="/images/unregister.png" iconPosition="leading"
+                                                   actionListener="#{pageFlowScope.deviceRegistrationBacking.unRegisterDeviceFromMCS}"
+                                                   inlineStyle="width:150px;"/>
+                            </amx:panelGroupLayout>
+                        </amx:panelGroupLayout>
+                        <amx:spacer id="s29" height="10"/>
+                        <amx:outputText value="Notification Messages" id="ot17"
+                                        styleClass="adfmf-outputText-sectionTitle"
+                                        inlineStyle="text-align:start; padding-left:5px; word-break: break-all"/>
+                        <amx:spacer id="s8" height="8"/>
+                        <amx:panelFormLayout id="pfl2" labelPosition="topStart" showHorizontalDividers="false"
+                                             labelWidth="250"
+                                             inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;">
+                            <amx:panelLabelAndMessage label="Received Push Messages" id="plam1">
+                                <amx:outputText value="#{applicationScope.push_message}" id="ot3"/>
+                            </amx:panelLabelAndMessage>
+                            <amx:panelLabelAndMessage label="Push Error (if any)" id="plam3">
+                                <amx:outputText value="#{applicationScope.push_errorMessage}" id="ot5"/>
+                            </amx:panelLabelAndMessage>
+                        </amx:panelFormLayout>
+                        <amx:spacer id="s19" height="7"/>
+                        <amx:panelGroupLayout id="pgl3" inlineStyle="margin-left:20px; margin-right:20px;">
+                            <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                                            inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+                            <amx:spacer id="s10" height="5"/>
+                            <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                                            inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                        </amx:panelGroupLayout>
+                    </amx:panelGroupLayout>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

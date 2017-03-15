@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1">
+    <amx:facet name="header">
+      <amx:outputText value="Demo Home" id="ot1"/>
+    </amx:facet>
+           <amx:facet name="primary">
+            <amx:commandLink actionListener="#{bindings.gotoSpringboard.execute}" id="cl1" shortDesc="Navigates to Springboard">
+                    <amx:image inlineStyle="width:30px;height:30px;margin-top:-6px" source="/images/springboard.png" id="i1" shortDesc="Hamburger Icon"/>
+            </amx:commandLink>
+        </amx:facet>
+    <amx:facet name="secondary">
+      <amx:commandLink text="Logout" id="cl2" action="logout" shortDesc="Logout from the MBE session">
+        <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+        <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>
+      </amx:commandLink>
+    </amx:facet>
+        <amx:panelStretchLayout id="psl1">
+        <amx:facet name="top">
+        <amx:panelGroupLayout id="pgl1" inlineStyle="width:100%" halign="center" layout="vertical">
+          <amx:panelGroupLayout id="pgl3" layout="horizontal" halign="center"
+                                inlineStyle="background-color:#bdd3e9; height:155px;">
+            <amx:image id="i2" source="/images/mcs_product_logo_256.png" shortDesc="MCS logo"
+                       inlineStyle="border-color:White; border-width:5px; position:center; width:150px; height:150px;"/>
+          </amx:panelGroupLayout>
+         <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+      </amx:facet>
+        <amx:facet name="center">
+        <amx:listView var="row" showMoreStrategy="autoScroll" bufferStrategy="viewport" id="lv1">
+        <amx:listItem id="li6" shortDesc="AppPolicy Selection" action="AppPolicy">
+            <amx:tableLayout width="100%" id="tl6" shortDesc="Single item table">
+              <amx:rowLayout id="rl6">
+                <amx:cellFormat width="100" halign="start" id="cf10" shortDesc="single item image cell">
+                  <amx:image source="/images/appPolicies.png" id="i3" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf1" shortDesc="Text" halign="start">
+                  <amx:outputText value="Application Policies" id="ot2"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+          <amx:listItem id="li1" shortDesc="User Management API Selection" action="userManagement" rendered="#{!bindings.anonymousLogin.inputValue}">
+            <amx:tableLayout width="100%" id="tl1" shortDesc="Single item table">
+              <amx:rowLayout id="rl1">
+                <amx:cellFormat width="100" halign="start" id="cf2" shortDesc="single item image cell">
+                  <amx:image source="/images/usrmgmt.png" id="i8" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf9" shortDesc="Text" halign="start">
+                  <amx:outputText value="MCS User Management API" id="ot7"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+          <amx:listItem id="li2" shortDesc="Analytic API Selection" action="analytics">
+            <amx:tableLayout width="100%" id="tl2" shortDesc="Single item table">
+              <amx:rowLayout id="rl2">
+                <amx:cellFormat width="100" halign="start" id="cf3" shortDesc="single item image cell">
+                  <amx:image source="/images/analytics.png" id="i4" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf4" shortDesc="Text" halign="start">
+                  <amx:outputText value="MCS Analytic API" id="ot3"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+          <amx:listItem id="li3" shortDesc="Storage API Selection" action="storage" rendered="#{!bindings.anonymousLogin.inputValue}">
+            <amx:tableLayout width="100%" id="tl3" shortDesc="Single item table">
+              <amx:rowLayout id="rl3">
+                <amx:cellFormat width="100" halign="start" id="cf5" shortDesc="single item image cell">
+                  <amx:image source="/images/storage.png" id="i5" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf6" shortDesc="Text" halign="start">
+                  <amx:outputText value="MCS Storage API" id="ot8"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+          <amx:listItem id="li4" shortDesc="Custom API Selection" action="customAPI">
+            <amx:tableLayout width="100%" id="tl4" shortDesc="Single item table">
+              <amx:rowLayout id="rl4">
+                <amx:cellFormat width="100" halign="start" id="cf11" shortDesc="single item image cell">
+                  <amx:image source="/images/customapi.png" id="i7" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf7" shortDesc="Text" halign="start">
+                  <amx:outputText value="MCS Custom API" id="ot9"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+          <amx:listItem id="li5" shortDesc="Device Registration API Selection" action="deviceRegistration">
+            <amx:tableLayout width="100%" id="tl5" shortDesc="Single item table">
+              <amx:rowLayout id="rl5">
+                <amx:cellFormat width="100" halign="start" id="cf12" shortDesc="single item image cell">
+                  <amx:image source="/images/devicereg.png" id="i11" shortDesc="MCS Feature image"/>
+                </amx:cellFormat>
+                <amx:cellFormat width="100%" height="43px" id="cf8" shortDesc="Text" halign="start">
+                  <amx:outputText value="MCS Device Registration API" id="ot10"/>
+                </amx:cellFormat>
+              </amx:rowLayout>
+            </amx:tableLayout>
+          </amx:listItem>
+        </amx:listView>
+      </amx:facet>
+    </amx:panelStretchLayout>    
+  </amx:panelPage>
+</amx:view>

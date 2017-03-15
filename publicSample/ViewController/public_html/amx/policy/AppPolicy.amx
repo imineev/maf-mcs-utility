@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1">
+    <amx:facet name="header">
+      <amx:outputText value="Application Policies" id="ot1"/>
+    </amx:facet>
+     <amx:facet name="secondary">
+      <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home">
+        <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+        <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+      </amx:commandButton>
+    </amx:facet>
+    <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+         <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+    <amx:facet name="center">
+        <amx:panelGroupLayout id="pgl4" inlineStyle="border-width:0px; width:100%; padding-left:5px;"
+                              scrollPolicy="scroll">
+          <amx:panelGroupLayout id="pgl1" inlineStyle="border-width:0px; width:100%; padding-left:5px;" halign="start">
+            <amx:spacer height="5" id="s1"/>
+            <amx:outputText value="About" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+            <amx:spacer height="5" id="s2"/>
+            <amx:outputHtml value="This view displays Oracle Mobile Cloud Services MBE application policies. Application policies are key/value pairs that application developers can define in an MBE for the mobile client application to read and display or handle"
+                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;" id="ohtml1"/>
+          </amx:panelGroupLayout>
+          <amx:panelGroupLayout id="pgl2" inlineStyle="border-width:0px; width:100%; padding-left:5px;" halign="start"
+                                scrollPolicy="scroll">
+            <amx:spacer id="s5" height="8"/>
+            <amx:outputText value="Application Policies Queried from MBE" id="ot7" styleClass="adfmf-outputText-sectionTitle"
+                            inlineStyle="text-align:start;"/>
+            <amx:spacer id="s6" height="8"/>
+          </amx:panelGroupLayout>
+          <amx:spacer id="s19" height="7"/>
+          <amx:listView var="row" value="#{bindings.appPolicy.collectionModel}"
+                        fetchSize="#{bindings.appPolicy.rangeSize}"
+                        initialScrollRowKeys="#{bindings.appPolicy.collectionModel.selectedRow}"
+                        showMoreStrategy="autoScroll" bufferStrategy="viewport" id="lv1">
+            <amx:listItem showLinkIcon="false" id="li1">
+              <amx:tableLayout width="100%" id="tl1">
+                <amx:rowLayout id="rl1">
+                  <amx:cellFormat width="10px" rowSpan="2" id="cf1"/>
+                  <amx:cellFormat width="100%" height="#{deviceScope.device.os=='Android'?'36':'32'}px" id="cf2">
+                    <amx:outputText value="Policy Name: #{row.policyName}" id="ot2"/>
+                  </amx:cellFormat>
+                </amx:rowLayout>
+                <amx:rowLayout id="rl2">
+                  <amx:cellFormat width="100%" height="#{deviceScope.device.os=='Android'?'22':'19'}px" id="cf3">
+                    <amx:outputText value="Policy Value: #{row.policyValue}" styleClass="adfmf-listItem-captionText" id="ot3"/>
+                  </amx:cellFormat>
+                </amx:rowLayout>
+              </amx:tableLayout>
+            </amx:listItem>
+          </amx:listView>
+          <amx:panelGroupLayout id="pgl3"
+                                inlineStyle="border-width:0px; width:80%; margin-left:20px; margin-right:20px;"
+                                scrollPolicy="scroll">
+            <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                            inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+            <amx:spacer id="s10" height="5"/>
+            <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                            inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+            <amx:outputText value="#{pageFlowScope.userManagementBacking.displayErrorMessage}" id="oti7"
+                            inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+          </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+      </amx:facet>  
+    </amx:panelStretchLayout>
+  </amx:panelPage>
+</amx:view>

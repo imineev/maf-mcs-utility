@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.13.26" id="StoragePageDef"
+                Package="storage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="root" RangeSize="25" DataControl="MobileBackendDC" id="MobileBackendDCIterator"/>
+    <accessorIterator MasterBinding="MobileBackendDCIterator" Binds="storageInformation" RangeSize="25"
+                      DataControl="MobileBackendDC"
+                      BeanClass="com.oracle.maf.sample.mcs.apis.storage.StorageInformation"
+                      id="storageInformationIterator"/>
+    <accessorIterator MasterBinding="storageInformationIterator" Binds="items" RangeSize="25"
+                      DataControl="MobileBackendDC" BeanClass="com.oracle.maf.sample.mcs.apis.storage.StorageCollection"
+                      id="itemsIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="storageInformationIterator" id="hasMore">
+      <AttrNames>
+        <Item Value="hasMore"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="storageInformationIterator" id="limit">
+      <AttrNames>
+        <Item Value="limit"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="storageInformationIterator" id="offset">
+      <AttrNames>
+        <Item Value="offset"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="storageInformationIterator" id="count">
+      <AttrNames>
+        <Item Value="count"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="storageInformationIterator" id="totalResults">
+      <AttrNames>
+        <Item Value="totalResults"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="itemsIterator" id="items">
+      <nodeDefinition DefName="com.oracle.maf.sample.mcs.apis.storage.StorageCollection" Name="items0">
+        <AttrNames>
+          <Item Value="collectionID"/>
+          <Item Value="description"/>
+          <Item Value="userIsolated"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <button IterBinding="MobileBackendDCIterator" id="showObjectsOwnedByOtherUsers" DTSupportsMRU="false"
+            StaticList="true">
+      <AttrNames>
+        <Item Value="showObjectsOwnedByOtherUsers"/>
+      </AttrNames>
+      <ValueList>
+        <Item Value="true"/>
+        <Item Value="false"/>
+      </ValueList>
+    </button>
+  </bindings>
+</pageDefinition>

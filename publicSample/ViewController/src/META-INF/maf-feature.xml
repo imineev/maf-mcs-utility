@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:features xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf">
+  <adfmf:feature id="com.oracle.maf.sample.About" name="About">
+    <adfmf:content id="com.oracle.maf.sample.About.1">
+      <adfmf:amx file="amx/about/about.amx">
+        <adfmf:includes/>
+      </adfmf:amx>
+    </adfmf:content>
+  </adfmf:feature>
+  <adfmf:feature id="com.oracle.maf.sample.Springboard" name="Springboard">
+    <adfmf:content id="com.oracle.maf.sample.Springboard.1">
+      <adfmf:amx file="amx/springboard/SpringBoard.amx"/>
+    </adfmf:content>
+  </adfmf:feature>
+  <adfmf:feature id="com.oracle.maf.sample.MafMcsUtility" name="Start MAF MCS Utility Demo">
+    <adfmf:content id="com.oracle.maf.sample.MafMcsUtility.1">
+      <adfmf:amx file="mafmcsutility/mafmcsutil-task-flow.xml#mafmcsutil-task-flow">
+        <adfmf:includes>
+          <adfmf:include type="JavaScript" file="scripts/PopupUtils.js" id="i1"/>
+          <adfmf:include type="StyleSheet" file="css/mafmcsutility.css" id="i2"/>
+        </adfmf:includes>
+      </adfmf:amx>
+    </adfmf:content>
+  </adfmf:feature>
+</adfmf:features>

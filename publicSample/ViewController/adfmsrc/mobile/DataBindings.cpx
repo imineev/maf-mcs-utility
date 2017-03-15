@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.1.3.13.26" id="DataBindings"
+             SeparateXMLFiles="false" Package="mobile" ClientType="Generic">
+  <pageMap>
+    <page path="/amx/about/about.amx" usageId="mobile_aboutPageDef"/>
+    <page path="/amx/springboard/SpringBoard.amx" usageId="mobile_SpringBoardPageDef"/>
+    <page path="/amx/demo/DemoStart.amx" usageId="mobile_DemoStartPageDef"/>
+    <page path="/amx/preferences/PreferenceScreen.amx" usageId="mobile_PreferenceScreenPageDef"/>
+    <page path="/amx/analytics/Analytics.amx" usageId="mobile_AnalyticsPageDef"/>
+    <page path="/amx/storage/Storage.amx" usageId="mobile_StoragePageDef"/>
+    <page path="/amx/storage/CollectionDetails.amx" usageId="mobile_CollectionDetailsPageDef"/>
+    <page path="/amx/custom/CustomAPI.amx" usageId="mobile_CustomAPIPageDef"/>
+    <page path="/amx/policy/AppPolicy.amx" usageId="mobile_AppPolicyPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="mobile_aboutPageDef" path="amx.about.aboutPageDef"/>
+    <page id="mobile_SpringBoardPageDef" path="amx.springboard.SpringBoardPageDef"/>
+    <page id="mobile_DemoStartPageDef" path="amx.demo.DemoStartPageDef"/>
+    <page id="mobile_PreferenceScreenPageDef" path="amx.preferences.PreferenceScreenPageDef"/>
+    <page id="mobile_AnalyticsPageDef" path="amx.analytics.AnalyticsPageDef"/>
+    <page id="mobile_SamplePageDef" path="com.oracle.maf.sample.mobile.pageDefs.SamplePageDef"/>
+    <page id="mobile_StoragePageDef" path="storage.StoragePageDef"/>
+    <page id="mobile_CollectionDetailsPageDef" path="amx.storage.CollectionDetailsPageDef"/>
+    <page id="mobile_CustomAPIPageDef" path="amx.custom.CustomAPIPageDef"/>
+    <page id="mobile_AppPolicyPageDef" path="amx.policy.AppPolicyPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="MobileBackendDC" path="com.oracle.maf.sample.application.MobileBackendDC"/>
+    <dc id="ApplicationFeatures" path="com.oracle.maf.sample.application.ApplicationFeatures"/>
+  </dataControlUsages>
+</Application>

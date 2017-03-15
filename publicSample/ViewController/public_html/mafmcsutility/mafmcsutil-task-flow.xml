@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<adfc-mobile-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.0">
+  <task-flow-definition id="mafmcsutil-task-flow">
+    <default-activity>ensurePreferences</default-activity>
+    <managed-bean id="__5">
+      <managed-bean-name>mcsPreferences</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.preferences.PreferencesHelper</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__16">
+      <managed-bean-name>mcsAuthentication</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.auth.Authentication</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__38">
+      <managed-bean-name>mcsAnalytics</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.analytics.AnalyticsHelper</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__43">
+      <managed-bean-name>collectonDetailsBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.CollectionDetailsBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__45">
+      <managed-bean-name>objectUpdateBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.ObjectUpdateBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__57">
+      <managed-bean-name>objectDeleteBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.ObjectDeleteBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__58">
+      <managed-bean-name>objectDownloadBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.ObjectDownloadBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__60">
+      <managed-bean-name>objectCreateBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.ObjectCreateBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__59">
+      <managed-bean-name>userManagementBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.usermanagement.UserManagementBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__63">
+      <managed-bean-name>deviceRegistrationBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.push.DeviceRegistrationBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__64">
+      <managed-bean-name>customApiBacking</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.custom.CustomAPIBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__65">
+      <managed-bean-name>mcsStorage</managed-bean-name>
+      <managed-bean-class>com.oracle.maf.sample.mobile.mbeans.storage.StorageBacking</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="PreferenceScreen">
+      <page>/amx/preferences/PreferenceScreen.amx</page>
+    </view>
+    <router id="ensurePreferences">
+        <case id="__6">
+        <expression>#{!pageFlowScope.mcsPreferences.isHasPreferences()}</expression>
+        <outcome>editPreferences</outcome>
+      </case>
+      <default-outcome>checkAuthentication</default-outcome>
+    </router>
+    <view id="DemoStart">
+      <page>/amx/demo/DemoStart.amx</page>
+    </view>
+    <view id="Analytics">
+      <page>/amx/analytics/Analytics.amx</page>
+    </view>
+    <view id="UserManagement">
+      <page>/amx/user/UserManagement.amx</page>
+    </view>
+    <view id="Storage">
+      <page>/amx/storage/Storage.amx</page>
+    </view>
+    <view id="Login">
+      <page>/amx/login/Authentication.amx</page>
+    </view>
+    <view id="DeviceRegistration">
+      <page>/amx/push/DeviceRegistration.amx</page>
+    </view>
+    <router id="ensureAuthentication">
+      <case id="__36">
+        <expression>#{!pageFlowScope.mcsAuthentication.isMbeAuthenticated()}</expression>
+        <outcome>login</outcome>
+      </case>
+      <case id="__37">
+        <expression>#{pageFlowScope.mcsAuthentication.isMbeAuthenticated()}</expression>
+        <outcome>demoStart</outcome>
+      </case>
+      <default-outcome>login</default-outcome>
+    </router>
+    <method-call id="logout">
+      <method>#{pageFlowScope.mcsAuthentication.logoutFromMBE}</method>
+      <outcome>
+        <fixed-outcome>logout</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="CustomAPI">
+      <page>/amx/custom/CustomAPI.amx</page>
+    </view>
+    <view id="CollectionDetails">
+      <page>/amx/storage/CollectionDetails.amx</page>
+    </view>
+    <view id="ObjectUpdate">
+      <page>/amx/storage/ObjectUpdate.amx</page>
+    </view>
+    <view id="ObjectDelete">
+      <page>/amx/storage/ObjectDelete.amx</page>
+    </view>
+    <view id="ObjectCreate">
+      <page>/amx/storage/ObjectCreate.amx</page>
+    </view>
+    <view id="ObjectDownload">
+      <page>/amx/storage/ObjectDownload.amx</page>
+    </view>
+    <method-call id="readUserInfo">
+      <method>#{pageFlowScope.userManagementBacking.initUserInfo}</method>
+      <outcome>
+        <fixed-outcome>userManagement</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="AppPolicy">
+      <page>/amx/policy/AppPolicy.amx</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>ensurePreferences</from-activity-id>
+      <control-flow-case id="__31">
+        <from-outcome>checkAuthentication</from-outcome>
+        <to-activity-id>ensureAuthentication</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>PreferenceScreen</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>ensurePreferences</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>DemoStart</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>analytics</from-outcome>
+        <to-activity-id>Analytics</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__11">
+        <from-outcome>userManagement</from-outcome>
+        <to-activity-id>readUserInfo</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__12">
+        <from-outcome>storage</from-outcome>
+        <to-activity-id>Storage</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__18">
+        <from-outcome>deviceRegistration</from-outcome>
+        <to-activity-id>DeviceRegistration</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__17">
+        <from-outcome>customAPI</from-outcome>
+        <to-activity-id>CustomAPI</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__3">
+        <from-outcome>AppPolicy</from-outcome>
+        <to-activity-id>AppPolicy</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id>Login</from-activity-id>
+      <control-flow-case id="__15">
+        <from-outcome>success</from-outcome>
+        <to-activity-id>ensureAuthentication</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__19">
+      <from-activity-id>DeviceRegistration</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id>UserManagement</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id>Storage</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__2">
+        <from-outcome>showDetails</from-outcome>
+        <to-activity-id>CollectionDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__25">
+      <from-activity-id>Analytics</from-activity-id>
+      <control-flow-case id="__26">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id>ensureAuthentication</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome>login</from-outcome>
+        <to-activity-id>Login</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__28">
+        <from-outcome>demoStart</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__32">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__33">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>logout</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__34">
+      <from-activity-id>logout</from-activity-id>
+      <control-flow-case id="__35">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>ensureAuthentication</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__29">
+      <from-activity-id>CustomAPI</from-activity-id>
+      <control-flow-case id="__30">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__39">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__41">
+        <from-outcome>editPreferences</from-outcome>
+        <to-activity-id>PreferenceScreen</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__40">
+      <from-activity-id>CollectionDetails</from-activity-id>
+      <control-flow-case id="__42">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>Storage</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__44">
+        <from-outcome>update</from-outcome>
+        <to-activity-id>ObjectUpdate</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__46">
+        <from-outcome>delete</from-outcome>
+        <to-activity-id>ObjectDelete</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__49">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>ObjectCreate</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__54">
+        <from-outcome>download</from-outcome>
+        <to-activity-id>ObjectDownload</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__47">
+      <from-activity-id>ObjectUpdate</from-activity-id>
+      <control-flow-case id="__48">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>CollectionDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__51">
+      <from-activity-id>ObjectDelete</from-activity-id>
+      <control-flow-case id="__52">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>CollectionDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__50">
+      <from-activity-id>ObjectCreate</from-activity-id>
+      <control-flow-case id="__53">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>CollectionDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__55">
+      <from-activity-id>ObjectDownload</from-activity-id>
+      <control-flow-case id="__56">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>CollectionDetails</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__61">
+      <from-activity-id>readUserInfo</from-activity-id>
+      <control-flow-case id="__62">
+        <from-outcome>userManagement</from-outcome>
+        <to-activity-id>UserManagement</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>AppPolicy</from-activity-id>
+      <control-flow-case id="__66">
+        <from-outcome>return</from-outcome>
+        <to-activity-id>DemoStart</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <page-flow-scope-behavior>
+      <push-new/>
+    </page-flow-scope-behavior>
+  </task-flow-definition>
+</adfc-mobile-config>

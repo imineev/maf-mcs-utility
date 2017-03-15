@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Download Content" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+             <amx:commandButton id="cb2" text="Collection Details" action="return" shortDesc="Return to Collection Details">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+         </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+         <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="width:100%">
+                    <amx:selectOneButton id="sob1"
+                                         valueChangeListener="#{pageFlowScope.objectDownloadBacking.onTabMenuSelect}"
+                                         value="#{pageFlowScope.objectDownloadBacking.tabMenuSelection}"
+                                         inlineStyle="color:#003152; font-size:large; heigtht:40px">
+                        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+                        <amx:selectItem label="Sample" id="si4" value="content"/>
+                    </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.objectDownloadBacking.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer height="7" id="s1"/>
+                            <amx:outputText value="Instructions" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer height="7" id="s2"/>
+                            <amx:outputHtml value="This sample downloads the content associated with the selected (and thus displayed) object Id from Oracle MCS. &lt;p>                      The downloaded files are saved on the mobile device and displayed using the MAF DeviceManager displayFile() method. &lt;p>This public sample supports the following MIME types: &lt;p>                      &lt;ul>&lt;li>image/png&lt;/li>&lt;li>application/msword&lt;/li>&lt;li>application/vnd.ms-powerpoint&lt;/li>&lt;li>application/pdf&lt;/li>&lt;li>video/mp4&lt;/li>&lt;/ul>&lt;p>                      Important! The application does not render the downloaded content itself but has it rendered by the mobile device. An error is shown by the device if no suitable application is found to display the downloaded content mime-type,&lt;p>                      Optionally, define a custom name for the downloaded file by specifying a file name and extension in the 'Target file name' field.&lt;p>                      To start the download, press the 'Download Object' button."
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                            id="ohtml1"/>
+                            <amx:spacer height="7" id="s3"/>
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content" layout="vertical" scrollPolicy="scroll"
+                                              inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+                            <amx:panelGroupLayout id="pgl2" inlineStyle="border-width:0px; width:100%;" halign="center"
+                                                  scrollPolicy="scroll">
+                                <amx:spacer height="7" id="s5"/>
+                                <amx:outputText value="Collection Object Metadata" id="o4"
+                                                styleClass="adfmf-outputText-sectionTitle"/>
+                                <amx:panelFormLayout id="pfl1" labelPosition="start" fieldHalign="end"
+                                                     showHorizontalDividers="false" labelWidth="150">
+                                    <amx:panelLabelAndMessage id="plam2" label="Id">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.objectId}" id="ot2"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Display Name" id="plam3">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.displayName}"
+                                                        id="ot3"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Content type" id="plam8">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.contentType}"
+                                                        id="ot4"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Content length (bytes)" id="plam10">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.contentLength}"
+                                                        id="ot5"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Created on" id="plam4">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.createdOn}" id="ot6"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Created by" id="plam5">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.createdBy}" id="ot7"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Modified on" id="plam6">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.modifiedOn}" id="ot8"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Modified by" id="plam7">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.modifiedBy}" id="ot9"/>
+                                    </amx:panelLabelAndMessage>
+                                    <amx:panelLabelAndMessage label="Etag" id="plam9">
+                                        <amx:outputText value="#{pageFlowScope.objectDownloadBacking.ETag}" id="ot10"/>
+                                    </amx:panelLabelAndMessage>
+                                </amx:panelFormLayout>
+                                <amx:spacer height="7" id="s16"/>
+                            </amx:panelGroupLayout>
+                            <amx:spacer id="s17" height="5"/>
+                            <amx:panelGroupLayout id="pgl4" layout="vertical">
+                                <amx:outputText value="Download Object" id="ot18"
+                                                styleClass="adfmf-outputText-sectionTitle"
+                                                inlineStyle="padding-left:7px;"/>
+                                <amx:spacer id="s4"/>
+                                <amx:panelFormLayout id="pfl4">
+                                    <amx:inputText label="File name for download" id="it1"
+                                                   hintText="Please enter a filename + .extension"
+                                                   value="#{pageFlowScope.objectDownloadBacking.targetFileName}"/>
+                                </amx:panelFormLayout>
+                                <amx:spacer id="s18" height="7"/>
+                                <amx:panelFormLayout id="pfl3" labelPosition="start" fieldHalign="center"
+                                                     fieldWidth="100%" labelWidth="0%"
+                                                     inlineStyle="border-width:0px; background-color:#e7e7e7;">
+                                    <amx:panelLabelAndMessage id="plam11" label="">
+                                        <amx:commandButton text="Download Object" id="cmb4"
+                                                           shortDesc="Download object from MCS"
+                                                           icon="/images/download.png" iconPosition="leading"
+                                                           actionListener="#{pageFlowScope.objectDownloadBacking.downloadObject}"/>
+                                    </amx:panelLabelAndMessage>
+                                </amx:panelFormLayout>
+                            </amx:panelGroupLayout>
+                            <amx:spacer id="s19" height="7"/>
+                            <amx:panelFormLayout id="pfl2" labelPosition="start" fieldHalign="start" fieldWidth="100%"
+                                                 labelWidth="0%" inlineStyle="border-width:0px; padding-left:7px;">
+                                <amx:panelLabelAndMessage id="plam13"
+                                                          inlineStyle="padding-top:25px; width:100%; min-width:100%; border-width:0px;"
+                                                          label="">
+                                    <amx:outputText value="#{applicationScope.dataControlError}" id="ot11"
+                                                    inlineStyle="width:100%; color:#e70000; font-size:large; text-align:start;"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage id="plam14"
+                                                          inlineStyle="padding-top:25px; width:100%; min-width:100%; border-width:0px;"
+                                                          label="">
+                                    <amx:outputText value="#{pageFlowScope.objectDownloadBacking.displaysErrorMessage}"
+                                                    id="ot12"
+                                                    inlineStyle="width:100%; color:#e70000; font-size:large; text-align:start;"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+         </amx:panelStretchLayout>
+  </amx:panelPage>
+</amx:view>

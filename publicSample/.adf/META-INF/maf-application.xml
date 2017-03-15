@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf"
+                   version="2.3.0" name="MAF MCS Utility Sample" id="com.oraclecorp.internal.ent3.McsUtilSample"
+                   appControllerFolder="ApplicationController"
+                   listener-class="com.oracle.maf.sample.application.LifeCycleListenerImpl"
+                   vendor="Oracle Corporation ((c) 2016)">
+  <adfmf:description>The MAF MCS Utility public sample application is a generic MCS tester that works against any MCS 1.1 instance. The public sample uses the MAF MCS Utility library for all of its REST communication with MCS. </adfmf:description>
+  <adfmf:featureReference refId="com.oracle.maf.sample.About" id="fr1" showOnNavigationBar="false"/>
+  <adfmf:featureReference refId="com.oracle.maf.sample.MafMcsUtility" id="fr3" showOnNavigationBar="false"/>
+  <adfmf:featureReference refId="com.oracle.maf.sample.Springboard" id="fr2" showOnNavigationBar="false"
+                          showOnSpringboard="false"/>
+  <adfmf:preferences>
+    <adfmf:preferenceGroup id="mcs" label="Mobile Cloud Service Settings">
+      <adfmf:preferenceText id="mobileBackendURL" label="Mobile Backend Base URL"/>
+      <adfmf:preferenceText label="MBE Application Key" id="mobileBackendApplicationKey"/>
+    </adfmf:preferenceGroup>
+    <adfmf:preferenceGroup id="httpBasicAuth" label="HTTP Basic Authentication">
+      <adfmf:preferenceText id="mobileBackendId" label="Mobile Backend ID"/>
+      <adfmf:preferenceText id="mbeAnonymousKey" label="MBE Anonymous Key" secret="false"/>
+    </adfmf:preferenceGroup>
+    <adfmf:preferenceGroup id="oAUTHAuthentication" label="OAuth Authentication">
+      <adfmf:preferenceText id="oauthtokenendpoint" label="OAuth Token Endpoint"/>
+      <adfmf:preferenceText id="clientId" label="Client Id"/>
+      <adfmf:preferenceText id="clientSecret" label="Client Secret"/>
+      <adfmf:preferenceText id="identityDomain" label="MCS Identity Domain "/>
+    </adfmf:preferenceGroup>
+    <adfmf:preferenceGroup id="auth" label="Authentication Type">
+      <adfmf:preferenceList id="authtype" label="Authentication Type" default="basic">
+        <adfmf:preferenceValue name="Http Basic" value="basic" id="pv1"/>
+        <adfmf:preferenceValue name="Oauth2" value="oauth" id="pv2"/>
+      </adfmf:preferenceList>
+    </adfmf:preferenceGroup>
+    <adfmf:preferenceGroup id="push" label="Push Notification Settings">
+      <adfmf:preferenceText id="gcmSenderId" label="(Android) Google Cloud Messaging Sender Id" secret="false"/>
+      <adfmf:preferenceText id="appleBundleId" label="(Apple) Application Bundle Id"/>
+      <adfmf:preferenceText label="(Google) Application Package Information" id="googleApplicationPackage"/>
+      <adfmf:preferenceBoolean id="enablePush" label="Enable Receiving Push Notifications" default="false"/>
+    </adfmf:preferenceGroup>
+    <adfmf:preferenceGroup id="more" label="Logging &amp; More">
+      <adfmf:preferenceBoolean id="loggingEnabled" label="Logging Enabled"/>
+      <adfmf:preferenceBoolean id="showintroduction" label="Show Introductions" default="true"/>
+    </adfmf:preferenceGroup>
+  </adfmf:preferences>
+  <adfmf:navigation>
+    <adfmf:navigationBar enabled="false"/>
+    <adfmf:springboard enabled="true" showSpringboardAtStartup="false" displayGotoSpringboardControl="true" width="300">
+      <adfmf:springboardFeatureReference refId="com.oracle.maf.sample.Springboard" id="sfr1"/>
+    </adfmf:springboard>
+  </adfmf:navigation>
+</adfmf:application>

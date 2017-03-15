@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Create Object(s)" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+             <amx:commandButton id="cb2" text="Collection Details" action="return" shortDesc="Return to Collection Details"
+                                actionListener="#{pageFlowScope.objectCreateBacking.resetForm}">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+         </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>     
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" scrollPolicy="scroll" layout="vertical" inlineStyle="width:100%">
+                    <amx:selectOneButton id="sob1"
+                                         valueChangeListener="#{pageFlowScope.objectCreateBacking.onTabMenuSelect}"
+                                         value="#{pageFlowScope.objectCreateBacking.tabMenuSelection}"
+                                         inlineStyle="color:#003152; font-size:large; heigtht:40px">
+                        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+                        <amx:selectItem label="Sample" id="si4" value="content"/>
+                    </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.objectCreateBacking.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer height="7" id="s1"/>
+                            <amx:outputText value="Instructions" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer height="7" id="s2"/>
+                            <amx:outputHtml value="This view allows you to create new MCS storage objects for a collection. You can create as many new objects as you like by selecting a document from the list, providing a display name and pressing the 'Create Object' button.&lt;p>                      The sample files are deployed with the application (just in case you wonder where they come from) and help simulating content upload to MCS from a mobile device"
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                            id="ohtml1"/>
+                            <amx:spacer height="7" id="s3"/>
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content" inlineStyle="margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll" layout="vertical">
+                            <amx:spacer height="7" id="s16"/>
+                            <amx:outputText value="Create Object in Collction #{pageFlowScope.objectCreateBacking.collectionId}"
+                                            id="o5" styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer height="7" id="s6"/>
+                            <amx:panelFormLayout id="pfl2" labelPosition="start" fieldHalign="end"
+                                                 showHorizontalDividers="false" labelWidth="150">
+                                <amx:selectOneRadio label="Select file" id="sor1"
+                                                    value="#{pageFlowScope.objectCreateBacking.documentName}">
+                                    <amx:selectItem id="si1" label="MS Word Document" value="doc.docx"/>
+                                    <amx:selectItem id="si2" label="Adobe Document" value="pdf.pdf"/>
+                                    <amx:selectItem id="si7" label="MS Powerpoint Document" value="ppt.pptx"/>
+                                    <amx:selectItem id="si8" label="MP4 Video" value="mp4.mp4"/>
+                                    <amx:selectItem id="si5" label="Image" value="png.png"/>
+                                </amx:selectOneRadio>
+                                <amx:inputText label="Display name" id="it1" hintText="Add display name for object"
+                                               value="#{pageFlowScope.objectCreateBacking.displayNameSetByUser}"/>
+                                <amx:panelLabelAndMessage label="Press button ... " id="plam1">
+                                    <amx:commandButton text="Create Object" id="cb1"
+                                                       shortDesc="Update selected object with file content"
+                                                       actionListener="#{pageFlowScope.objectCreateBacking.createStorageObject}"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:spacer height="7" id="s5"/>
+                            <amx:outputText value="Collection Object Metadata" id="o4"
+                                            styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:panelFormLayout id="pfl1" labelPosition="start" fieldHalign="end"
+                                                 showHorizontalDividers="false" labelWidth="150">
+                                <amx:panelLabelAndMessage id="plam2" label="Id">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.objectId}" id="ot2"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Display Name" id="plam3">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.displayName}" id="ot3"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Content type" id="plam8">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.contentType}" id="ot4"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Content length (bytes)" id="plam10">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.contentLength}" id="ot5"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Created on" id="plam4">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.createdOn}" id="ot6"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Created by" id="plam5">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.createdBy}" id="ot7"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Modified on" id="plam6">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.modifiedOn}" id="ot8"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Modified by" id="plam7">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.modifiedBy}" id="ot9"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Etag" id="plam9">
+                                    <amx:outputText value="#{pageFlowScope.objectCreateBacking.ETag}" id="ot10"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:panelGroupLayout id="pgl3"
+                                                  inlineStyle="border-width:0px; width:80%; margin-left:20px; margin-right:20px;"
+                                                  scrollPolicy="scroll">
+                                <amx:spacer id="si9" height="5"/>
+                                <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                                                inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+                                <amx:spacer id="s10" height="5"/>
+                                <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                                                inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                                <amx:outputText value="#{pageFlowScope.objectCreateBacking.displaysErrorMessage}" id="oti7"
+                                                inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+                            </amx:panelGroupLayout>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

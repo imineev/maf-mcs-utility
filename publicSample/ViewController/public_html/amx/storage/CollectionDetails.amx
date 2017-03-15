@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Collection Details" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+            <amx:commandButton id="cb2" text="Storage Home" action="return" shortDesc="Storage Home">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>
+            </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+       <amx:facet name="top">
+         <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" layout="vertical" scrollPolicy="scroll" inlineStyle="width:100%">
+                    <amx:selectOneButton id="sob1"
+                                         valueChangeListener="#{pageFlowScope.collectonDetailsBacking.onTabMenuSelect}"
+                                         value="#{pageFlowScope.collectonDetailsBacking.tabMenuSelection}"
+                                         inlineStyle="color:#003152; font-size:large; heigtht:40px">
+                        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+                        <amx:selectItem label="Sample" id="si4" value="content"/>
+                    </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.collectonDetailsBacking.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer height="5" id="s2"/>
+                            <amx:outputHtml value="This view shows detail information about a selected collection including the content objects it contains. From here, you can create new objects, update existing objects and delete objects from MCS.&lt;p>                     MAF MCS Utility allows paginated querying of collection objects. The sample uses this functionality to limit the number of queried objects for a collection to 25, starting by a range index of 0.&lt;p>                     New objects in this sample are created for the authenticated user (though in your own MAF applications you can also create isolated collection objects for other users if the use case requires this). Update, download and delete however also work on other user objects, requiring the authenticated user to have READ_ALL or READ_WRITE_ALL permission for the collection."
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"
+                                            id="ohtml1"/>
+                            <amx:spacer id="s4" height="10"/>
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content" inlineStyle="margin-left:25px; margin-right:20px; width:95%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer id="s5" height="8"/>
+                            <amx:outputText value="Collection Information" id="ot7"
+                                            styleClass="adfmf-outputText-sectionTitle" inlineStyle="text-align:start;"/>
+                            <amx:spacer id="s6" height="8"/>
+                            <amx:panelFormLayout id="pfl1"
+                                                 inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;"
+                                                 labelWidth="150">
+                                <amx:panelLabelAndMessage label="Collection Id" id="plam3">
+                                    <amx:outputText value="#{bindings.collectionID.inputValue}" id="ot4"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Description" id="plam2">
+                                    <amx:outputText value="#{bindings.description.inputValue}" id="ot3"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Entity Tag" id="plam1">
+                                    <amx:outputText value="#{bindings.ETag.inputValue}" id="ot2"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Length of Content (Byte)" id="plam4">
+                                    <amx:outputText value="#{bindings.contentLength.inputValue}" id="ot5"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Collection Isolation Status" id="plam5">
+                                    <amx:outputText value="#{bindings.userIsolated.inputValue == false?'Shared':'User Isolated'}"
+                                                    id="ot6"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:spacer id="s7" height="5"/>
+                            <amx:panelGroupLayout id="pgl4" layout="vertical"
+                                                  rendered="#{bindings.internalUseOnly_missingCollectionPrivileges.inputValue == false}">
+                                <amx:outputText value="Add New Object to Collection" id="ot18"
+                                                styleClass="adfmf-outputText-sectionTitle"/>
+                                <amx:spacer id="s18" height="7"/>
+                                <amx:panelFormLayout id="pfl3" labelPosition="start" fieldHalign="center"
+                                                     fieldWidth="100%" labelWidth="0%"
+                                                     inlineStyle="border-width:0px; background-color:#e7e7e7;">
+                                    <amx:panelLabelAndMessage id="plam7">
+                                        <amx:commandButton text="Create New Storage Object(s)" id="cmb4"
+                                                           shortDesc="Create a new object for the collection"
+                                                           action="create" icon="/images/create.png"
+                                                           iconPosition="leading">
+                                            <amx:setPropertyListener id="spl8"
+                                                                     from="#{bindings.collectionID.inputValue}"
+                                                                     to="#{pageFlowScope.objectCreateBacking.collectionId}"
+                                                                     type="action"/>
+                                        </amx:commandButton>
+                                    </amx:panelLabelAndMessage>
+                                </amx:panelFormLayout>
+                            </amx:panelGroupLayout>
+                            <amx:spacer id="s19" height="7"/>
+                            <amx:outputText value="Objects in this Collection" id="ot8"
+                                            styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer id="s8" height="7"/>
+                            <!--
+                      The query is limited to 25 objects and starts by range index 0. For isolated collections, 
+                      the sample queries all objects in that collection, for which the user must have read_all 
+                      and write_read_all permissions
+                    -->
+                            <amx:iterator value="#{bindings.StorageObject.collectionModel}" id="i1" var="row">
+                                <amx:tableLayout id="tl1" width="90%"
+                                                 inlineStyle="#{row.rowKey % 2 == 0? 'background-color:white':'background-color: #ebf5fc'}"
+                                                 layout="fixed">
+                                    <amx:rowLayout id="rl1">
+                                        <amx:cellFormat id="cf1" rowSpan="1"
+                                                        halign="start" valign="middle" width="40" height="60">
+                                            <amx:image id="i2" source="/images/attachment.png"
+                                                       inlineStyle="width:32px; height:32px; padding-right:10px;"/>
+                                        </amx:cellFormat>
+                                        <amx:cellFormat id="cf2" columnSpan="1" height="60" valign="middle"
+                                                        halign="center">
+                                            <amx:outputText value="#{row.ID}" id="ot12" inlineStyle="font-size:large;"/>
+                                        </amx:cellFormat>
+                                        <amx:cellFormat id="cf5" width="150"
+                                                        halign="end" height="60" valign="middle">
+                                            <amx:panelGroupLayout id="pgl3" layout="horizontal"
+                                                                  inlineStyle="height:60px; background-color:#309fdb; padding-top:7px;" halign="end"
+                                                                  valign="middle">
+                                                <amx:panelGroupLayout id="pgl2"
+                                                                      halign="center" valign="middle"
+                                                                      layout="horizontal">
+                                                    <amx:commandLink id="cl1"
+                                                                     action="update"
+                                                                     inlineStyle="width:50px; height:50px; ">
+                                                        <amx:image id="i3" source="/images/update.png"
+                                                                   inlineStyle="width:32px; height:32px; padding-top:5px;"/>
+                                                        <amx:setPropertyListener id="spl1" from="#{row.ID}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.objectId}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl6" from="#{row.contentType}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.contentType}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl14" from="#{row.ETag}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.ETag}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl16" from="#{row.contentLength}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.contentLength}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl12" from="#{row.createdBy}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.createdBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl15" from="#{row.createdOn}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.createdOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl10" from="#{row.displayName}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.displayName}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl13" from="#{row.modifiedBy}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.modifiedBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl17" from="#{row.modifiedOn}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.modifiedOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl9" from="#{row.canonicalLink}"
+                                                                                 to="#{pageFlowScope.objectUpdateBacking.canonicalLink}"
+                                                                                 type="action"/>
+                                                    </amx:commandLink>
+                                                </amx:panelGroupLayout>
+                                                <amx:panelGroupLayout id="pgl5"
+                                                                      inlineStyle="width:50px; height:50px; "
+                                                                      halign="center" valign="middle"
+                                                                      layout="horizontal">
+                                                    <amx:commandLink id="cl2"
+                                                                     action="delete" shortDesc="Delete Object">
+                                                        <amx:image id="i4" source="/images/delete.png"
+                                                                   inlineStyle="width:32px; height:32px; padding-top:5px;"/>
+                                                        <amx:setPropertyListener id="spl4" from="#{row.ID}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.objectId}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl26" from="#{row.contentType}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.contentType}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl24" from="#{row.ETag}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.ETag}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl23" from="#{row.contentLength}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.contentLength}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl22" from="#{row.createdBy}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.createdBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl25" from="#{row.createdOn}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.createdOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl20" from="#{row.displayName}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.displayName}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl21" from="#{row.modifiedBy}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.modifiedBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl27" from="#{row.modifiedOn}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.modifiedOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl7" from="#{row.canonicalLink}"
+                                                                                 to="#{pageFlowScope.objectDeleteBacking.canonicalLink}"
+                                                                                 type="action"/>
+                                                    </amx:commandLink>
+                                                </amx:panelGroupLayout>
+                                                <amx:panelGroupLayout id="pgl6"
+                                                                      inlineStyle="width:50px; height:50px; "
+                                                                      halign="center" valign="middle"
+                                                                      layout="horizontal">
+                                                    <amx:commandLink id="cl3"
+                                                                     action="download">
+                                                        <amx:image id="i5" source="/images/download.png"
+                                                                   inlineStyle="width:32px; height:32px; padding-top:5px;"/>
+                                                        <amx:setPropertyListener id="spl44" from="#{row.ID}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.objectId}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl46" from="#{row.contentType}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.contentType}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl45" from="#{row.ETag}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.ETag}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl41" from="#{row.contentLength}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.contentLength}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl47" from="#{row.createdBy}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.createdBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl43" from="#{row.createdOn}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.createdOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl40" from="#{row.displayName}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.displayName}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl49" from="#{row.modifiedBy}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.modifiedBy}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl48" from="#{row.modifiedOn}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.modifiedOn}"
+                                                                                 type="action"/>
+                                                        <amx:setPropertyListener id="spl5" from="#{row.canonicalLink}"
+                                                                                 to="#{pageFlowScope.objectDownloadBacking.canonicalLink}"
+                                                                                 type="action"/>
+                                                    </amx:commandLink>
+                                                </amx:panelGroupLayout>
+                                            </amx:panelGroupLayout>
+                                        </amx:cellFormat>
+                                    </amx:rowLayout>
+                                    <amx:rowLayout id="rl2">
+                                        <amx:cellFormat id="cf3" width="100%" columnSpan="3" height="60">
+                                            <amx:panelLabelAndMessage label="Display Name: " id="plam6">
+                                                <amx:outputText value="#{row.displayName}" id="ot9"/>
+                                            </amx:panelLabelAndMessage>
+                                        </amx:cellFormat>
+                                    </amx:rowLayout>
+                                    <amx:rowLayout id="rl4">
+                                        <amx:cellFormat id="cf4" columnSpan="3" width="100%" height="60">
+                                            <amx:panelLabelAndMessage label="Modified by: " id="plam8">
+                                                <amx:outputText value="#{row.modifiedBy}" id="ot11"
+                                                                inlineStyle="word-wrap: break-word;"/>
+                                            </amx:panelLabelAndMessage>
+                                        </amx:cellFormat>
+                                    </amx:rowLayout>
+                                    <amx:rowLayout id="rl3">
+                                        <amx:cellFormat id="cf10" columnSpan="3" width="100%" height="60">
+                                            <amx:panelLabelAndMessage label="Object owner user Id:" id="plam9">
+                                                <amx:outputText value="#{row.user}" id="ot15"/>
+                                            </amx:panelLabelAndMessage>
+                                        </amx:cellFormat>
+                                    </amx:rowLayout>
+                                </amx:tableLayout>
+                                <amx:spacer id="s3" height="20"/>
+                            </amx:iterator>
+                            <amx:spacer id="s17" height="5"/>
+                            <amx:panelFormLayout id="pfl2" labelPosition="start" fieldHalign="start" fieldWidth="100%"
+                                                 labelWidth="0%" inlineStyle="border-width:0px; padding-left:7px;">
+                                <amx:panelLabelAndMessage id="plam10"
+                                                          inlineStyle="padding-top:25px; width:100%; min-width:100%; border-width:0px;">
+                                    <amx:outputText value="#{applicationScope.dataControlError}" id="ot10"
+                                                    inlineStyle="width:100%; color:#e70000; font-size:large; text-align:start;"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

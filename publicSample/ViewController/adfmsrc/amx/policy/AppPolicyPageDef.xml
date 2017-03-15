@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.2.1" id="AppPolicyPageDef"
+                Package="amx.policy">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="root" RangeSize="25" DataControl="MobileBackendDC" id="MobileBackendDCIterator"/>
+    <accessorIterator MasterBinding="MobileBackendDCIterator" Binds="appPolicy" RangeSize="25"
+                      DataControl="MobileBackendDC" BeanClass="com.oracle.maf.sample.mcs.apis.policy.Policy"
+                      id="appPolicyIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="appPolicyIterator" id="appPolicy">
+      <nodeDefinition DefName="com.oracle.maf.sample.mcs.apis.policy.Policy" Name="appPolicy0">
+        <AttrNames>
+          <Item Value="policyName"/>
+          <Item Value="policyValue"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

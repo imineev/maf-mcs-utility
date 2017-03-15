@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.login-page-tall {
+    background-image: url("../images/background_768_blur.png"); 
+}
+
+.login-page-wide {
+    background-image: url("../images/background_1024_blur.png"); 
+}
+
+

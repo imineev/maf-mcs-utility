@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1">
+    <amx:facet name="header">
+      <amx:outputText value="User Management" id="ot1"/>
+    </amx:facet>
+     <amx:facet name="secondary">
+      <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home">
+        <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+        <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+      </amx:commandButton>
+    </amx:facet>
+    <amx:panelStretchLayout scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+    <amx:facet name="center">
+        <amx:panelGroupLayout id="pgl4" inlineStyle="border-width:0px; width:100%; padding-left:5px;"
+                              scrollPolicy="scroll">
+          <amx:panelGroupLayout id="pgl1" inlineStyle="border-width:0px; width:100%; padding-left:5px;" halign="start">
+            <amx:spacer height="5" id="s1"/>
+            <amx:outputText value="About" id="o2" styleClass="adfmf-outputText-sectionTitle"/>
+            <amx:spacer height="5" id="s2"/>
+            <amx:outputHtml value="This view uses the Oracle MCS User Management API to read and display information about the authenticated user.&lt;p>           To some extend (dependent on permission), user properties can be updated through the MAF MCS Utility by the authenticated user(not demonstrated in this sample)"
+                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;" id="ohtml1"/>
+          </amx:panelGroupLayout>
+          <amx:panelGroupLayout id="pgl2" inlineStyle="border-width:0px; width:100%; padding-left:5px;" halign="start">
+            <amx:spacer id="s5" height="8"/>
+            <amx:outputText value="Authenticated User Information" id="ot7" styleClass="adfmf-outputText-sectionTitle"
+                            inlineStyle="text-align:start;"/>
+            <amx:spacer id="s6" height="8"/>
+            <amx:panelFormLayout id="pfl1" labelPosition="start" fieldHalign="end" showHorizontalDividers="false"
+                                 labelWidth="150"
+                                 inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;">
+              <amx:panelLabelAndMessage label="User Id" id="plam1">
+                <amx:outputText id="ot2" value="#{pageFlowScope.userManagementBacking.userId}"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelLabelAndMessage label="User Name" id="plam2">
+                <amx:outputText id="ot3" value="#{pageFlowScope.userManagementBacking.username}"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelLabelAndMessage label="First Name" id="plam3">
+                <amx:outputText value="#{pageFlowScope.userManagementBacking.firstName}" id="ot4"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelLabelAndMessage label="Last Name" id="plam4">
+                <amx:outputText value="#{pageFlowScope.userManagementBacking.lastName}" id="ot5"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelLabelAndMessage label="Email" id="plam5">
+                <amx:outputText value="#{pageFlowScope.userManagementBacking.email}" id="ot6"/>
+              </amx:panelLabelAndMessage>
+            </amx:panelFormLayout>
+          </amx:panelGroupLayout>
+          <amx:spacer id="s19" height="7"/>
+          <amx:panelGroupLayout id="pgl3"
+                                inlineStyle="border-width:0px; width:80%; margin-left:20px; margin-right:20px;"
+                                scrollPolicy="scroll">
+            <amx:outputText value="#{applicationScope.dataControlInfo}" id="oti4"
+                            inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+            <amx:spacer id="s10" height="5"/>
+            <amx:outputText value="#{applicationScope.dataControlError}" id="oti6"
+                            inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+            <amx:outputText value="#{pageFlowScope.userManagementBacking.displayErrorMessage}" id="oti7"
+                            inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+          </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+      </amx:facet>  
+    </amx:panelStretchLayout>
+  </amx:panelPage>
+</amx:view>

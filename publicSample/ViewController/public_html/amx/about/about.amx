@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="About MAF MCS Utility 2.3" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="primary">
+            <amx:commandLink actionListener="#{bindings.gotoSpringboard.execute}" id="cl1" shortDesc="Navigates to Springboard">
+                    <amx:image inlineStyle="width:30px;height:30px;margin-top:-6px" source="/images/springboard.png" id="i1" shortDesc="Hamburger Icon"/>
+            </amx:commandLink>
+        </amx:facet>
+        <amx:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="margin-left:25px; margin-right:20px; width:90%;"
+                              scrollPolicy="scroll">
+            <amx:spacer height="7" id="s3"/>
+            <amx:outputText value="About" id="cot1" styleClass="adfmf-outputText-sectionTitle"/>
+            <amx:spacer height="7" id="s1"/>
+            <amx:outputText value="This Oracle MAF public sample is optimized for use with Android and iOS tablets (though it doe also runs on smartphones) and demonstrates the use of the MAF MCS Utility to access Oracle Mobile Cloud Services (MCS). To run this sample, you need a trial or paid Oracle MCS subscription that you connect to. Within the Orace MCS instance you need to create at least one mobile user, a Mobile Backend (MBE) to test against, and one or more sample Storage colection(s) that you then assign to the MBE."
+                            id="ot5"/>
+            <amx:spacer id="s2" height="7"/>
+            <amx:outputHtml id="oh1"
+                            value="&lt;ul>&lt;li>A mobile user account is needed to authenticate the sample application to Oracle MCS (The user account is a mobile user, not the Oracle MCS admin user you receive information about after subrscribing to Oracle MCS)&lt;br> &lt;li>At least one Storage collection (shared or isolated) is needed for testing Storage APIs&lt;/li>
+                            &lt;li>To test the MCS Storage, ensure the authenticated user has been granted read-only, read-write, read-only (for all users) or read-write (for all users) permission for a collection. This sample attempts to query all user objects (the query is limited to the first 25 items) from a selected collection&lt;/li> &lt;li>To test device registration for receiving push notifications from Oracle MCS, you need to create client application entries for Android and iOS in the Oracle MCS MBE and configure them with the information required by the push provider (Apple, Google). Also ensure valid values are provided in the sample preferences for the Google sender Id token and the Apple application bunde Id. Note that MAF applications cannot register for push if run in the iOS Simulator or Android Emulator.&lt;/li>      
+                            &lt;li>To test querying a custom API in MCS, create a custom API and provide some data (you can use mockup data in MCS)&lt;/li> 
+                            &lt;li>Important: The public sample invokes the MAF MCS Utilities synchronously. The MAF MCS Utility APIs can be called asynchronously using Threads in Java. An example is provided in the public Sample source code (see MobileBackendDC.java --> registerDeviceWithMCS() method) &lt;/li>&lt;/ul> &lt;p>&lt;br> &lt;/p>"/>
+            <amx:spacer id="s4" height="8"/>
+            <amx:outputText value="Prerequisites" id="cot3" styleClass="adfmf-outputText-sectionTitle"/>
+            <amx:outputHtml value="The following information needs to be provided in the preference view that shows the first time this demo application is started on a device, simulator or emulator"
+                            id="ot4"/>
+            <amx:spacer id="s6" height="8"/>
+            <amx:outputHtml id="oh2"
+                            value=" &lt;ul> &lt;li>MCS mobile backend URL (http://mbe_host:port)&lt;br> &lt;/li> &lt;li>MCS mobile backend Id &lt;br> &lt;/li>&lt;li>MCS mobile backend client application key (Android)&lt;/li> &lt;li>MCS mobile backend client application key (iOS)&lt;/li> &lt;/ul> &lt;p>&lt;br> &lt;/p>"/>
+            <amx:spacer id="s7" height="8"/>
+            <amx:outputHtml id="oh4" value="If you have access to the source code of this MAF MCS Utility sample, it is recommended you have a look at the MobileBackendDC.java class in the MAF application controller project. The MobileBackendDC.java file contains example source codes for all MAF MCS Utility MBE service proxies to invoke platform APIs on an Oracle MCS instance."/>
+            <amx:spacer id="s5" height="8"/>
+            <amx:outputText value="To Run the Sample" id="cot4" styleClass="adfmf-outputText-sectionTitle"/>
+            <amx:spacer id="s8" height="8"/>
+            <amx:outputHtml id="oh3"
+                            value='To run the sample, click onto the "burger" icon on the top left of this screen. In the opened Springboard, choose the "Start MAF MCS Utility Demo" entry, which will lead you to the login screen, or, if this is the first time you run the sample, to the preference screen. In the login screen, provide a valid username/password credential pair or select the anonymous login option. &lt;p>Note that if you login as anonymous, only those options available to anonymous users are displayed. '/>
+        </amx:panelGroupLayout>
+    </amx:panelPage>
+</amx:view>

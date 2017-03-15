@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.13.26" id="CollectionDetailsPageDef"
+                Package="amx.storage">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <methodIterator Binds="findCollectionById.result" DataControl="MobileBackendDC" RangeSize="25"
+                    BeanClass="com.oracle.maf.sample.mcs.apis.storage.StorageCollection"
+                    id="findCollectionByIdIterator"/>
+    <methodIterator Binds="queryObjectsByRange.result" DataControl="MobileBackendDC" RangeSize="25"
+                    BeanClass="com.oracle.maf.sample.mcs.apis.storage.StorageObject" id="queryObjectsByRangeIterator"/>
+    <methodIterator Binds="fetchCurrentCollectionStorageObjects.result" DataControl="MobileBackendDC" RangeSize="25"
+                    BeanClass="com.oracle.maf.sample.mcs.apis.storage.StorageObject"
+                    id="fetchCurrentCollectionStorageObjectsIterator"/>
+    <invokeAction id="alwaysReExecuteCollection" Binds="findCollectionById"/>
+    <invokeAction id="alwaysREexecuteFetchCurrentStorageObjects" Binds="fetchCurrentCollectionStorageObjects"
+                  RefreshAfter="alwaysReExecuteCollection"/>
+    <iterator Binds="root" RangeSize="25" DataControl="MobileBackendDC" id="MobileBackendDCIterator"/>
+  </executables>
+  <bindings>
+    <methodAction id="findCollectionById" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="findCollectionById" IsViewObjectMethod="false" DataControl="MobileBackendDC"
+                  InstanceName="data.MobileBackendDC.dataProvider"
+                  ReturnName="data.MobileBackendDC.methodResults.findCollectionById_MobileBackendDC_dataProvider_findCollectionById_result">
+      <NamedData NDName="collectionId" NDValue="#{pageFlowScope.collectonDetailsBacking.selectedCollectionId}"
+                 NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="findCollectionByIdIterator" id="collectionID">
+      <AttrNames>
+        <Item Value="collectionID"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="findCollectionByIdIterator" id="description">
+      <AttrNames>
+        <Item Value="description"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="findCollectionByIdIterator" id="ETag">
+      <AttrNames>
+        <Item Value="ETag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="findCollectionByIdIterator" id="contentLength">
+      <AttrNames>
+        <Item Value="contentLength"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="findCollectionByIdIterator" id="userIsolated">
+      <AttrNames>
+        <Item Value="userIsolated"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="fetchCurrentCollectionStorageObjects" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="fetchCurrentCollectionStorageObjects" IsViewObjectMethod="false"
+                  DataControl="MobileBackendDC" InstanceName="data.MobileBackendDC.dataProvider"
+                  ReturnName="data.MobileBackendDC.methodResults.fetchCurrentCollectionStorageObjects_MobileBackendDC_dataProvider_fetchCurrentCollectionStorageObjects_result">
+      <NamedData NDName="alwaysRequery" NDValue="true" NDType="boolean"/>
+    </methodAction>
+    <tree IterBinding="fetchCurrentCollectionStorageObjectsIterator" id="StorageObject">
+      <nodeDefinition DefName="com.oracle.maf.sample.mcs.apis.storage.StorageObject" Name="StorageObject0">
+        <AttrNames>
+          <Item Value="ID"/>
+          <Item Value="displayName"/>
+          <Item Value="contentType"/>
+          <Item Value="modifiedBy"/>
+          <Item Value="createdBy"/>
+          <Item Value="ETag"/>
+          <Item Value="modifiedOn"/>
+          <Item Value="createdOn"/>
+          <Item Value="contentLength"/>
+          <Item Value="user"/>
+          <Item Value="canonicalLink"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="MobileBackendDCIterator" id="internalUseOnly_missingCollectionPrivileges">
+      <AttrNames>
+        <Item Value="internalUseOnly_missingCollectionPrivileges"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

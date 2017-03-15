@@ -1,0 +1,12 @@
+To install and run the sample (JDeveloper):
+===========================================
+
+1. Ensure the mafmcsutility.jar file is referenced from the public sample ApplicationController project (Library as JAR)
+
+2. Choose Run-> Active Run Configuration —> target (iOS or Android) for simulator or emulator. Then select ViewController project and choose “Run” from the menu or toolbar
+
+3. To deploy the application on the device, you need a Apple certificate (for iOS) and change the application bundle Id (Application properties -> Deployment), or a self-signed Java certificate (Android) 
+
+4. When deploying to the device, ensure you deploy in release mode (setting on the Android and iOS deployment profiles in the Aplication Properties deployment settings)
+
+Note: The public sample is optimized for the use in tablets though it can run on smartphones too.

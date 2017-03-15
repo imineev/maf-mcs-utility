@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1" styleClass="adfmf-panelPage-springboard">
+ <amx:facet name="header">
+            <amx:outputText value="#{bindings.name.inputValue}" id="ot3"/>
+    </amx:facet>
+    <amx:listView styleClass="amx-springboard" var="row" value="#{bindings.features.collectionModel}" fetchSize="#{bindings.features.rangeSize}"
+                  selectedRowKeys="#{bindings.features.collectionModel.selectedRow}"
+                  selectionListener="#{bindings.features.collectionModel.makeCurrent}" showMoreStrategy="autoScroll"
+                  bufferStrategy="viewport" id="lv1">
+      <amx:listItem actionListener="#{bindings.gotoFeature.execute}" showLinkIcon="false" id="li1" shortDesc="Lists all Features">
+        <amx:outputText value="#{row.name}" id="ot2"/>
+        <amx:setPropertyListener from="#{row.id}" to="#{pageFlowScope.currentFeature}"  id="spl1"/>
+      </amx:listItem>
+    </amx:listView>
+  </amx:panelPage>
+</amx:view>

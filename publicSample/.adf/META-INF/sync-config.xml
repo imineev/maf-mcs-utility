@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Settings xmlns="http://xmlns.oracle.com/sync/config">
+     <BaseUri>MCSUTILRESTCONN</BaseUri>
+    <AppId></AppId>
+    <LazyPersistence></LazyPersistence>
+    <RefreshPolicy></RefreshPolicy>
+    <DbStorageFolderPath></DbStorageFolderPath>
+    <FileStorageFolderPath></FileStorageFolderPath>
+    <Policies>
+        <ServerGroup id="storage" baseUri="MCSUTILRESTCONN">
+            <Policy id="storage1">
+                <Path>/mobile/platform/storage/collections</Path>
+                <FetchPolicy>FETCH_FROM_SERVICE_ON_CACHE_MISS_OR_EXPIRY</FetchPolicy>
+                <UpdatePolicy>QUEUE_IF_OFFLINE</UpdatePolicy>
+                <ExpirationPolicy>EXPIRE_AFTER</ExpirationPolicy>
+                <ExpireAfter>3600</ExpireAfter>
+                <EvictionPolicy>EVICT_ON_EXPIRY_AT_STARTUP</EvictionPolicy>
+            </Policy>
+            <Policy id="storage2">
+                <Path>/mobile/platform/storage/collections/*</Path>
+                <FetchPolicy>FETCH_FROM_SERVICE_ON_CACHE_MISS_OR_EXPIRY</FetchPolicy>
+                <UpdatePolicy>QUEUE_IF_OFFLINE</UpdatePolicy>
+                <ExpirationPolicy>EXPIRE_AFTER</ExpirationPolicy>
+                <ExpireAfter>300</ExpireAfter>
+                <EvictionPolicy>EVICT_ON_EXPIRY_AT_STARTUP</EvictionPolicy>
+            </Policy>
+        </ServerGroup>
+    <DefaultPolicy>
+      <FetchPolicy>FETCH_FROM_SERVICE</FetchPolicy>
+      <UpdatePolicy>UPDATE_IF_ONLINE</UpdatePolicy>
+      <ExpirationPolicy>NEVER_EXPIRE</ExpirationPolicy>
+      <EvictionPolicy>MANUAL_EVICTION</EvictionPolicy>
+    </DefaultPolicy>
+  </Policies>
+</Settings>

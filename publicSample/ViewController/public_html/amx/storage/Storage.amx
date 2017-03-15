@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:outputText value="Storage" id="ot1"/>
+        </amx:facet>
+        <amx:facet name="secondary">
+            <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home">
+                <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+                <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>
+            </amx:commandButton>
+        </amx:facet>
+        <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" layout="vertical" scrollPolicy="scroll" inlineStyle="width:100%">
+                    <amx:selectOneButton id="sob1" valueChangeListener="#{pageFlowScope.mcsStorage.onTabMenuSelect}"
+                                         value="#{pageFlowScope.mcsStorage.tabMenuSelection}"
+                                         inlineStyle="color:#003152; font-size:large; heigtht:40px">
+                        <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+                        <amx:selectItem label="Sample" id="si4" value="content"/>
+                    </amx:selectOneButton>
+                    <amx:deck id="d1" displayedChild="#{pageFlowScope.mcsStorage.tabMenuSelection}">
+                        <amx:panelGroupLayout id="instructions"
+                                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" layout="vertical" scrollPolicy="scroll">
+                            <amx:spacer height="10" id="s2"/>
+                            <amx:outputHtml value="The Storage API allows mobile users to query collections defined for a Mobile Backend (MBE) in Oracle MCS.                      &lt;p>Authenticated users require read-only permission for shared collections and read-only (for all users) for isolated collections. For write testing the Storage functionality in MAF MCS Utility, authenticated users require read-write or read-write (for all users) permissions.                      &lt;p>Before you can run this part of the sample, ensure one or more Storage collection are defined in the MBE. The number of queried collections is limiteed to 20 for this sample (MAF MCS Utility allows you to query as many collections as you like). To run this part of the sample, select a collection from the list shown below. "
+                                            id="ohtml1"
+                                            inlineStyle="padding-left:10px; padding-right:10px; text-align:start;"/>
+                            <amx:spacer height="10" id="s3"/>
+                        </amx:panelGroupLayout>
+                        <amx:panelGroupLayout id="content" inlineStyle="margin-left:25px; margin-right:20px; width:90%;"
+                                              halign="center" scrollPolicy="scroll">
+                            <amx:spacer id="s5" height="8"/>
+                            <amx:outputText value="MBE Storage Information" id="ot7"
+                                            styleClass="adfmf-outputText-sectionTitle" inlineStyle="text-align:start;"/>
+                            <amx:spacer id="s6" height="8"/>
+                            <amx:panelFormLayout id="pfl1"
+                                                 inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;">
+                                <amx:panelLabelAndMessage label="All Collections Queried from MCS" id="plam1">
+                                    <amx:outputText value="#{!bindings.hasMore.inputValue}" id="ot2"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Query Fetch Size" id="plam3">
+                                    <amx:outputText value="#{bindings.limit.inputValue}" id="ot4"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Query Start Index" id="plam5">
+                                    <amx:outputText value="#{bindings.offset.inputValue}" id="ot6"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Number of Collections Queried" id="plam2">
+                                    <amx:outputText value="#{bindings.count.inputValue}" id="ot3"/>
+                                </amx:panelLabelAndMessage>
+                                <amx:panelLabelAndMessage label="Total Number of Collections Found" id="plam4">
+                                    <amx:outputText value="#{bindings.totalResults.inputValue}" id="ot5"/>
+                                </amx:panelLabelAndMessage>
+                            </amx:panelFormLayout>
+                            <amx:spacer id="s7" height="5"/>
+                            <amx:outputText value="Collections" id="ot8" styleClass="adfmf-outputText-sectionTitle"/>
+                            <amx:spacer id="s8" height="7"/>
+                            <amx:panelGroupLayout id="pgl5" layout="vertical"
+                                                  inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px; text-align:start;">
+                                <amx:outputText value="Queries of isolated collections can contain objects owned by other users if the authenticated user has read-all or read-write-all permission. Select the boolean switch below to include objects by other users to the query result. Unselect if you only want to see objects owned by the authenticated user. The effect of the select switch is shown when you drill down into an isolated collection."
+                                                id="ot27" inlineStyle="text-align:start;"/>
+                                <amx:spacer id="s10" height="5"/>
+                            </amx:panelGroupLayout>
+                            <amx:panelFormLayout id="pfl4"
+                                                 inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;"
+                                                 labelWidth="80%" fieldWidth="20%">
+                                <amx:selectBooleanSwitch value="#{bindings.showObjectsOwnedByOtherUsers.inputValue}"
+                                                         label="When selected, shows collection object owned by other users for isolated collections (requires permission)"
+                                                         id="sbs1"/>
+                            </amx:panelFormLayout>
+                            <amx:listView var="row" value="#{bindings.items.collectionModel}"
+                                          fetchSize="#{bindings.items.rangeSize}"
+                                          selectedRowKeys="#{bindings.items.collectionModel.selectedRow}"
+                                          selectionListener="#{bindings.items.collectionModel.makeCurrent}"
+                                          showMoreStrategy="autoScroll" bufferStrategy="viewport" id="lv1"
+                                          inlineStyle="background-color:#e7e7e7; margin-left:20px; margin-right:20px;">
+                                <amx:listItem id="li1" shortDesc="Collection" action="showDetails">
+                                    <amx:panelGroupLayout id="pgl3" layout="horizontal" halign="start" valign="top">
+                                        <amx:image id="i2" source="/images/collectionFolder.png"
+                                                   shortDesc="collection image"
+                                                   inlineStyle="width:35px; height:35px; padding-right:5px;"/>
+                                        <amx:panelFormLayout id="pfl2" labelPosition="start" labelWidth="150"
+                                                             inlineStyle="border-width:0px; padding-left:10px; padding-right:10px;">
+                                            <amx:panelLabelAndMessage label="Collection Id" id="plam6">
+                                                <amx:outputText value="#{row.collectionID}" id="ot9"/>
+                                            </amx:panelLabelAndMessage>
+                                            <amx:panelLabelAndMessage label="Collection Description" id="plam7">
+                                                <amx:outputText value="#{row.description}" id="ot10"/>
+                                            </amx:panelLabelAndMessage>
+                                            <amx:panelLabelAndMessage label="Collection Shared / Isolated" id="plam8">
+                                                <amx:image id="i1"
+                                                           source="#{row.userIsolated==true?'/images/isolated.png':'/images/public.png'}"
+                                                           shortDesc="Collection shared or isolated state flag"/>
+                                            </amx:panelLabelAndMessage>
+                                        </amx:panelFormLayout>
+                                    </amx:panelGroupLayout>
+                                    <amx:setPropertyListener id="spl1" type="action" from="#{row.collectionID}"
+                                                             to="#{pageFlowScope.collectonDetailsBacking.selectedCollectionId}"/>
+                                </amx:listItem>
+                            </amx:listView>
+                        </amx:panelGroupLayout>
+                    </amx:deck>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

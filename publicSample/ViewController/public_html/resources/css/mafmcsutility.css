@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.login-page-tall {
+    background-image: url("../images/background_768_blur.png"); 
+}
+
+.login-page-wide {
+    background-image: url("../images/background_1024_blur.png"); 
+}
+
+
+.login-form{
+    width:70%; 
+    border-width:0px; 
+    background-color:white; 
+    opacity: 0.8;
+}

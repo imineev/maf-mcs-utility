@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1" styleClass="login-page #{deviceScope.hardware.screen.height > deviceScope.hardware.screen.width ? 'login-page-tall' : 'login-page-wide'}">
+    <amx:facet name="header">
+      <amx:outputText value="Login" id="ot1"/>
+    </amx:facet>
+    <amx:facet name="secondary">
+      <amx:commandButton text="Edit Preferences" id="cb2" action="editPreferences" shortDesc="Edit application preferences"/>
+    </amx:facet>
+     <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+        <amx:facet name="top">
+        <amx:panelGroupLayout id="pgl3" layout="horizontal" halign="center"
+                              inlineStyle="background-color:#bdd3e9; height:203px; opacity: 0.8;">
+          <amx:image id="i1" source="/images/mcs_product_logo_256.png"
+                     inlineStyle="border-color:White; border-width:5px; position:center; width:200px; height:200px;"/>
+        </amx:panelGroupLayout>
+      </amx:facet>
+        <amx:facet name="center">
+          <amx:panelGroupLayout id="pgl1" layout="vertical" halign="center" valign="middle"
+                                inlineStyle="width:100%" scrollPolicy="scroll">
+          <amx:spacer id="s1" height="#{deviceScope.hardware.screen.height/10}"/>
+          <amx:panelGroupLayout id="pgl4" layout="vertical"
+                                styleClass="login-form{" scrollPolicy="scroll">
+            <amx:panelFormLayout id="pfl1"
+                                 labelPosition="start" fieldHalign="start" fieldWidth="70%" labelWidth="30%"
+                                 inlineStyle="border-width:0px;" showHorizontalDividers="false">
+              <amx:inputText id="it1" label="Username" hintText="Enter mobile user name" inputType="text"
+                             value="#{pageFlowScope.mcsAuthentication.username}"
+                             disabled="#{pageFlowScope.mcsAuthentication.anonymousLogin}"/>
+              <amx:inputText id="it2" label="Password" hintText="Enter mobile user password" inputType="text" secret="true"
+                             value="#{pageFlowScope.mcsAuthentication.password}"
+                             disabled="#{pageFlowScope.mcsAuthentication.anonymousLogin}"/>
+              <amx:selectOneButton label="Authentication Type" id="sob1" value="#{preferenceScope.application.auth.authtype}"
+                                   inlineStyle="border-width:0px;"
+                                   disabled="#{!pageFlowScope.mcsPreferences.enableAuthTypeSwitcher}">
+                <amx:selectItem label="Basic Authentication" id="si1" value="basic"/>
+                <amx:selectItem label="Oauth Authentication" id="si2" value="oauth"/>
+              </amx:selectOneButton>
+              <amx:selectBooleanSwitch label="Anonymous" id="sbs1"
+                                       value="#{pageFlowScope.mcsAuthentication.anonymousLogin}" offLabel="Disabled"
+                                       onLabel="Enabled"/>
+              <amx:panelLabelAndMessage label="" id="plam1" 
+                                        inlineStyle="padding-top:25px; width:100%; min-width:100%; text-align:center; alignment-adjust:middle; alignment-baseline:middle;">
+                <amx:commandButton text="Login" id="cb1" action="#{pageFlowScope.mcsAuthentication.performAuthentication}"
+                                   shortDesc="Login button"/>
+              </amx:panelLabelAndMessage>
+            </amx:panelFormLayout>
+            <amx:panelFormLayout id="pfl2" labelPosition="start" fieldHalign="start" fieldWidth="70%"
+                                 labelWidth="30%"
+                                 inlineStyle="border-width:0px;  #{((empty applicationScope.dataControlError) &amp;&amp; (empty pageFlowScope.mcsAuthentication.loginMessage))? 'visibility:hidden;' : 'visibility:visible;'};" showHorizontalDividers="false">
+              <amx:panelLabelAndMessage id="plam2"
+                                        inlineStyle="padding-top:25px; width:100%; min-width:100%; border-width:0px;">
+                <amx:outputText value="#{pageFlowScope.mcsAuthentication.loginMessage}" id="ot2"
+                                inlineStyle="width:100%; color:#e70000; font-size:large; text-align:center;"/>
+                </amx:panelLabelAndMessage>
+                
+                <amx:panelLabelAndMessage id="plam4"
+                                          inlineStyle="padding-top:25px; width:100%; min-width:100%; border-width:0px;">
+                <amx:outputText value="#{applicationScope.dataControlError}" id="ot3"
+                                inlineStyle="width:100%; color:#e70000; font-size:large; text-align:start;"/>
+              </amx:panelLabelAndMessage>
+            </amx:panelFormLayout>
+          </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+        </amx:facet>
+        <amx:facet name="bottom"/>
+      </amx:panelStretchLayout>
+  </amx:panelPage>
+</amx:view>

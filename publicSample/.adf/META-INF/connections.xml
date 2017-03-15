@@ -1,0 +1,22 @@
+<References xmlns="http://xmlns.oracle.com/adf/jndi">
+  <Reference name="MCSUTILRESTCONN" className="oracle.adf.model.connection.rest.RestConnection" xmlns="">
+    <Factory className="oracle.adf.model.connection.rest.RestConnectionFactory"/>
+    <RefAddresses>
+      <XmlRefAddr addrType="MCSUTILRESTCONN">
+        <Contents>
+          <restconnection name="MCSUTILRESTCONN" url="http://127.0.0.1"/>
+        </Contents>
+      </XmlRefAddr>
+    </RefAddresses>
+  </Reference>
+  <Reference name="OAUTHENDPOINTCONN" className="oracle.adf.model.connection.rest.RestConnection" xmlns="">
+    <Factory className="oracle.adf.model.connection.rest.RestConnectionFactory"/>
+    <RefAddresses>
+      <XmlRefAddr addrType="OAUTHENDPOINTCONN">
+        <Contents>
+          <restconnection name="OAUTHENDPOINTCONN" url="http://127.0.0.1"/>
+        </Contents>
+      </XmlRefAddr>
+    </RefAddresses>
+  </Reference>
+</References>

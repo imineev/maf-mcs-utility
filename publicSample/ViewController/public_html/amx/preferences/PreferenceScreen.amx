@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1">
+    <amx:facet name="header">
+      <amx:outputText value="Sample Preferences" id="ot1"/>
+    </amx:facet>
+      <amx:facet name="primary">
+            <amx:commandLink actionListener="#{bindings.gotoSpringboard.execute}" id="cl1" shortDesc="Navigates to Springboard">
+                    <amx:image inlineStyle="width:30px;height:30px;margin-top:-6px" source="/images/springboard.png" id="i1" shortDesc="Hamburger Icon"/>
+            </amx:commandLink>
+        </amx:facet>
+    <amx:facet name="secondary">
+      <amx:commandButton id="cb2" action="return" text="Start Demo" shortDesc="Save Preference &amp; Start Demo"/>
+    </amx:facet>
+    <amx:panelGroupLayout id="pgl1"
+                          layout="vertical" inlineStyle="width:100%">
+      <amx:spacer id="s7" height="10"/>
+      <amx:selectOneButton id="sob1" valueChangeListener="#{pageFlowScope.mcsPreferences.onTabMenuSelect}"
+                           value="#{pageFlowScope.mcsPreferences.tabMenuSelection}"
+                           inlineStyle="color:#003152; font-size:large; heigtht:40px">
+        <amx:selectItem id="si3" label="About" value="about"/>
+        <amx:selectItem label="Global Configuration" id="si4" value="global"/>
+        <amx:selectItem label="Authentication" id="si5" value="authentication"/>
+        <amx:selectItem label="Push" id="si6" value="push"/>
+      </amx:selectOneButton>
+      <amx:spacer id="s6" height="10"/>
+      <amx:deck id="d1" displayedChild="#{pageFlowScope.mcsPreferences.tabMenuSelection}">
+        <amx:panelGroupLayout id="about" layout="vertical"
+                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;">
+          <amx:outputText id="ot2" value="About the Sample Application Preferences"
+                          styleClass="adfmf-outputText-sectionTitle"/>
+          <amx:spacer height="8" id="s5"/>
+          <amx:outputText value="1. Preferences can be edited at runtime using this view's Global Configuration, Authentication and Push tabs, at design-time in the maf-application.xml file, or the device specific mobile application preference panel."
+                          id="cot1"/>
+          <amx:spacer id="s2" height="8"/>
+          <amx:outputText value="2. All required preferences must be provided before starting the sample application."
+                          id="ot6"/>
+          <amx:spacer height="5" id="s1"/>
+          <amx:outputText value="3. The client application key in the Global Configuration tab is used to identify the device to MCS. For this you create client applications in Oracke MCS MBE for Android or for iOS. Dependent on which device this application runs on you then provide the key created for Android or iOS."
+                          id="cot10"/>
+          <amx:spacer height="20" id="s10"/>
+        </amx:panelGroupLayout>
+        <amx:panelGroupLayout id="global" layout="vertical"
+                              inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+          <amx:panelLabelAndMessage id="plam1">
+            <amx:outputText value="Mobile Cloud Service Settings (Required)" id="ot3"/>
+          </amx:panelLabelAndMessage>
+          <amx:panelFormLayout id="pfl1" labelPosition="topStart">
+            <amx:inputText label="Mobile Backend URL" id="it1" hintText="Mobile Backend Base URL (http://mbehost:port)"
+                           value="#{preferenceScope.application.mcs.mobileBackendURL}" inputType="url" required="true"
+                           showRequired="true"/>
+            <amx:inputText label="Client Application Key" id="it6" hintText="MBE Client Application Application Key"
+                           value="#{preferenceScope.application.mcs.mobileBackendApplicationKey}" required="true"
+                           showRequired="true"/>
+          </amx:panelFormLayout>
+          <amx:panelLabelAndMessage id="plam3">
+            <amx:outputText value="Logging &amp; More" id="ot8"/>
+          </amx:panelLabelAndMessage>
+          <amx:panelFormLayout id="pfl3" labelPosition="topStart" labelWidth="250">
+            <amx:selectBooleanSwitch label="MAF MCS Utility Logging" id="sbs1" offLabel="Logging OFF"
+                                     onLabel="Logging ON"
+                                     value="#{preferenceScope.application.more.loggingEnabled}"/>
+            <amx:selectBooleanSwitch label="Always Show Description Tab" id="sbs3"
+                                     value="#{preferenceScope.application.more.showintroduction}"/>
+          </amx:panelFormLayout>
+        </amx:panelGroupLayout>
+        <amx:panelGroupLayout id="authentication" layout="vertical"
+                              inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+          <amx:panelLabelAndMessage id="plam6">
+            <amx:outputText value="Authentication Type" id="ot10"/>
+          </amx:panelLabelAndMessage>
+          <amx:selectOneButton id="sob2"
+                               value="#{pageFlowScope.mcsPreferences.authTypeSwitcherState}"
+                               valueChangeListener="#{pageFlowScope.mcsPreferences.onAuthTypeSelect}">
+            <amx:selectItem id="si1" label="Basic" value="basic"/>
+            <amx:selectItem label="Oauth" id="si2" value="oauth"/>
+          </amx:selectOneButton>
+          <amx:deck id="d2" displayedChild="#{pageFlowScope.mcsPreferences.authTypeSwitcherState}">
+            <amx:panelGroupLayout id="basic" layout="vertical" inlineStyle="width:100%;">
+              <amx:panelLabelAndMessage id="plam4">
+                <amx:outputText value="HTTP Basic Authentication" id="ot5"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelFormLayout id="pfl4" labelPosition="topStart">
+                <amx:inputText label="Mobile Backend Id" id="it2" hintText="Http Basic Mobile Backend Id"
+                               value="#{preferenceScope.application.httpBasicAuth.mobileBackendId}" required="true"
+                               inputType="text" showRequired="true"/>
+                <amx:inputText label="Anonymous Key" id="it5"
+                               value="#{preferenceScope.application.httpBasicAuth.mbeAnonymousKey}" secret="true"
+                               required="true" hintText="Http Basic Anonymous Key" showRequired="true" inputType="text"/>
+              </amx:panelFormLayout>
+            </amx:panelGroupLayout>
+            <amx:panelGroupLayout id="oauth" layout="vertical" inlineStyle="width:100%;">
+              <amx:panelLabelAndMessage id="plam5">
+                <amx:outputText value="OAUTH Authentication" id="ot7"/>
+              </amx:panelLabelAndMessage>
+              <amx:panelFormLayout id="pfl5" labelPosition="topStart">
+                <amx:inputText label="Oauth Endpoint URL" id="it3" hintText="Oauth Token Endpoint URL"
+                               value="#{preferenceScope.application.oAUTHAuthentication.oauthtokenendpoint}"
+                               required="true" showRequired="true" inputType="url"/>
+                <amx:inputText label="Client Id" id="it7"
+                               value="#{preferenceScope.application.oAUTHAuthentication.clientId}" required="true"
+                               hintText="Oauth Client Id" showRequired="true" inputType="text"/>
+                <amx:inputText label="Client Secret" id="it11"
+                               value="#{preferenceScope.application.oAUTHAuthentication.clientSecret}" secret="true"
+                               hintText="Oauth client secret " inputType="text" showRequired="true"/>
+                <amx:inputText label="MCS Identity Domain" id="it12"
+                               value="#{preferenceScope.application.oAUTHAuthentication.identityDomain}"
+                               hintText="Add MCS identity domain" inputType="text" showRequired="true"/>
+              </amx:panelFormLayout>
+            </amx:panelGroupLayout>
+          </amx:deck>
+        </amx:panelGroupLayout>
+        <amx:panelGroupLayout id="push" layout="vertical"
+                              inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+          <amx:panelLabelAndMessage id="plam2">
+            <amx:outputText value="Push Settings (Optional, requires application restart)" id="ot4"/>
+          </amx:panelLabelAndMessage>
+          <amx:panelFormLayout id="pfl2" labelPosition="topStart">
+            <amx:inputText label="(Android) GCM Sender Id" id="it4"
+                           hintText="(Android) Google Cloud Messaging Sender Id" secret="true"
+                           value="#{preferenceScope.application.push.gcmSenderId}"/>
+            <amx:inputText label="(Apple) Bundle Id" id="it8" value="#{preferenceScope.application.push.appleBundleId}"
+                           hintText="Provide the application bundle Id"/>
+            <amx:inputText label="(Google) Package Name" id="it9"
+                           value="#{preferenceScope.application.push.googleApplicationPackage}"
+                           hintText="Provide the package and Application name as in maf-application.xml"/>
+            <amx:selectBooleanSwitch label="Enable Receiving Push Notifications" id="sbs2"
+                                     value="#{preferenceScope.application.push.enablePush}"
+                                     valueChangeListener="#{pageFlowScope.mcsPreferences.onEnablePushBooleanSwitch}"/>
+          </amx:panelFormLayout>
+        </amx:panelGroupLayout>
+      </amx:deck>
+    </amx:panelGroupLayout>
+    <amx:commandButton text="_hiddenShow" id="_popShowId" inlineStyle="visibility: hidden;">
+      <amx:showPopupBehavior id="spb1" popupId="p1" type="action" decoration="simple" alignId="pp1"
+                             align="overlapMiddleCenter"/>
+    </amx:commandButton>
+  </amx:panelPage>
+   <amx:popup id="p1" autoDismiss="true"
+              inlineStyle="font-size:large; width:400px; border-color:#84adff; border-width:1px;" shortDesc="Alert that applicaton needs to be started">
+    <amx:panelGroupLayout id="pgl3" layout="vertical"
+                          inlineStyle="background-color:#e9e9e9; margin-bottom:2px; margin-left:2px; margin-right:2px; margin-top:2px;">
+      <amx:outputText value="MAF receives push notification tokens from Google Cloud Messaging (GCM) or Apple Push Notification Service (APNS) during application start-up."
+                      inlineStyle="word-wrap:break-word; margin-bottom:3px; margin-left:3px; margin-right:3px; margin-top:3px;"
+                      id="ot40"/>
+    <amx:spacer id="s4" height="7"/>
+     <amx:outputText id="ot9" value="You need to restart this application after configuring the sample to receive push notifications."
+                     inlineStyle="word-wrap:break-word; margin-bottom:3px; margin-left:3px; margin-right:3px; margin-top:3px;" ></amx:outputText>
+      <amx:spacer id="s3" height="7"/>
+      <amx:outputText id="ot13" value="Note that push notification registration does not work for applications that run on the iOS Simulator or the Android Emulator."
+                     inlineStyle="word-wrap:break-word; margin-bottom:3px; margin-left:3px; margin-right:3px; margin-top:3px;" ></amx:outputText>
+      <amx:spacer id="s15" height="7"/>
+      <amx:commandButton text="Close" id="cb1" shortDesc="Close alert" inlineStyle="font-weight:bold;">
+        <amx:closePopupBehavior id="cpb1" popupId="p1" type="action"/>
+      </amx:commandButton>
+    </amx:panelGroupLayout>
+  </amx:popup>
+</amx:view>

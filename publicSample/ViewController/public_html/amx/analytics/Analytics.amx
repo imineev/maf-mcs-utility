@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  * @author Frank Nimphius
+ * @copyright Copyright (c) 2015, 2016 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+  <amx:panelPage id="pp1">
+    <amx:facet name="header">
+      <amx:outputText value="Analytics" id="ot1"/>
+    </amx:facet>
+    <amx:facet name="secondary">
+      <amx:commandButton id="cb2" text="Home" action="return" shortDesc="Return to Demo Home">
+        <amx:setPropertyListener id="spl2" from='#{""}' to="#{applicationScope.dataControlError}" type="action"/>
+        <amx:setPropertyListener id="spl3" from='#{""}' to="#{applicationScope.dataControlInfo}" type="action"/>                
+      </amx:commandButton>
+    </amx:facet>
+    <amx:panelStretchLayout id="psl1" scrollPolicy="scroll">
+      <amx:facet name="top">
+          <amx:panelGroupLayout id="pgl500" halign="end" layout="horizontal" inlineStyle="background-color:#e7e7e7; width:100%;">
+           <amx:panelLabelAndMessage id="plam200" inlineStyle="width:200px;">
+            <amx:outputText value="Welcome, #{applicationScope.mafmcsutilauthenticateduser}" id="ot400"
+                            inlineStyle="color:#004a73; width:250px; text-align:right; font-size:small;"/>
+          </amx:panelLabelAndMessage>
+        </amx:panelGroupLayout>
+      </amx:facet>
+      <amx:facet name="center">
+        <amx:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="width:100%">
+          <amx:selectOneButton id="sob1" valueChangeListener="#{pageFlowScope.mcsAnalytics.onTabMenuSelect}"
+                               value="#{pageFlowScope.mcsAnalytics.tabMenuSelection}"
+                               inlineStyle="color:#003152; font-size:large; heigtht:40px">
+            <amx:selectItem id="si3" label="Instructions" value="instructions"/>
+            <amx:selectItem label="Sample" id="si4" value="content"/>
+          </amx:selectOneButton>
+          <amx:spacer id="s6" height="10"/>
+          <amx:deck id="d1" displayedChild="#{pageFlowScope.mcsAnalytics.tabMenuSelection}">
+            <amx:panelGroupLayout id="instructions" inlineStyle="margin-left:25px; margin-right:20px; width:90%;"
+                                  halign="start" scrollPolicy="scroll">
+              <amx:spacer height="7" id="s7"/>
+              <amx:outputHtml value='&lt;ul>&lt;li>Edit the form fields with information you would want a mobile application to log&lt;br>&lt;/li>&lt;li>Press the "Add Event" button to queue the event to a list of outgoing events&lt;/li>&lt;li>Press "Send Events"&amp;nbsp; buttons to send the queued events to Oracle MCS&lt;/li> &lt;li>Navigate to the Oracle MCS Developer Portal and select to the Analytics portal page&lt;/li>   &lt;li>Switch the Mobile Backend from "All Backends" to the one that this sample connects to          &lt;br>&lt;/li>&lt;li>Press the "hamburger" icon next to "Dashboard"&lt;/li>          &lt;li>Select "Events" and look for "mafmcsutility-food","mafmcsutility-electronics" and "mafmcsutility-apparel", which are the event names this sample set for your custom purchase events          &lt;br>&lt;/li>&lt;/ul>'
+                              id="ohtml1"
+                              inlineStyle="color:#003152; font-size:large;margin-left:25px; margin-right:20px; width:90%;"/>
+            </amx:panelGroupLayout>
+            <amx:panelGroupLayout id="content" inlineStyle="margin-left:25px; margin-right:20px; width:90%;">
+              <amx:spacer height="10" id="s3"/>
+              <amx:outputText value="Report Service Activity" id="ot2" inlineStyle="padding-left:7px;"/>
+              <amx:spacer id="s4" height="5"/>
+              <amx:panelFormLayout id="pfl1" labelPosition="start" fieldHalign="end" showHorizontalDividers="false"
+                                   labelWidth="150">
+                <amx:selectOneRadio label="Custom Event Name" id="sor1"
+                                    value="#{pageFlowScope.mcsAnalytics.customEventName}" required="true">
+                  <amx:selectItem id="si1" label="Food Purchase" value="mafmcsutility-food"/>
+                  <amx:selectItem id="si2" label="Electronics Purchase" value="mafmcsutility-electronics"/>
+                  <amx:selectItem id="si5" label="Apparel Purchase" value="mafmcsutility-apparel"/>
+                </amx:selectOneRadio>
+                <amx:inputText label="Product Id" id="it1" required="true" hintText="Add a numeric value"
+                               value="#{pageFlowScope.mcsAnalytics.productId}" inputType="number"
+                               inlineStyle="padding-left:20px;"/>
+                <amx:inputText label="Product Name" id="it2" required="true" hintText="Add a product name string"
+                               value="#{pageFlowScope.mcsAnalytics.productName}" inlineStyle="padding-left:20px;"/>
+                <amx:inputText label="Unit Price" id="it3" required="true" hintText="Add a numeric value"
+                               value="#{pageFlowScope.mcsAnalytics.unitPrice}" inputType="number"
+                               inlineStyle="padding-left:20px;"/>
+                <amx:inputText label="Quantity" id="it4" required="true" hintText="Add a numeric value"
+                               value="#{pageFlowScope.mcsAnalytics.quantity}" inlineStyle="padding-left:20px;"/>
+              </amx:panelFormLayout>
+              <amx:panelGroupLayout id="pgl4" halign="center" layout="horizontal">
+                <amx:commandButton text="Add Event" id="cb1" shortDesc="Add event to outgoing queue"
+                                   actionListener="#{pageFlowScope.mcsAnalytics.addEvent}"/>
+                <amx:spacer id="s13" width="5"/>
+                <amx:commandButton text="Reset Form" id="cb3" shortDesc="Clear form data"
+                                   actionListener="#{pageFlowScope.mcsAnalytics.resetForm}"/>
+                <amx:spacer id="s8" height="25"/>
+              </amx:panelGroupLayout>
+              <amx:panelGroupLayout id="pgl3" inlineStyle="border-width:0px; width:100%;" halign="start"
+                                    layout="vertical">
+                <amx:outputText value="Send Events" id="ot3" inlineStyle="padding-left:7px;"/>
+                <amx:spacer id="s9" height="5"/>
+                <amx:panelFormLayout id="pfl3" labelWidth="15%" fieldHalign="start">
+                  <amx:panelLabelAndMessage label="Send Event to MCS MBE" id="plam1">
+                    <amx:commandButton actionListener="#{bindings.postEventsToServer.execute}" text="Send Events"
+                                       disabled="#{!bindings.postEventsToServer.enabled}" id="cb5"
+                                       shortDesc="Send Events"/>
+                  </amx:panelLabelAndMessage>
+                </amx:panelFormLayout>
+                <amx:spacer id="s5" height="15"/>
+                <amx:outputText value="System Feedback" id="ot5" inlineStyle="padding-left:7px;"/>
+                <amx:spacer id="s10" height="5"/>
+                <amx:outputText value="#{applicationScope.dataControlInfo}" id="ot4"
+                                inlineStyle="width:100%; color:#006300; font-size:large; text-align:center; padding-left:7px;"/>
+                <amx:spacer id="s11" height="5"/>
+                <amx:outputText value="#{applicationScope.dataControlError}" id="ot6"
+                                inlineStyle="width:100%; color:#c60000; font-size:large; text-align:center; padding-left:7px;"/>
+              </amx:panelGroupLayout>
+            </amx:panelGroupLayout>
+          </amx:deck>
+        </amx:panelGroupLayout>
+      </amx:facet>
+    </amx:panelStretchLayout>
+  </amx:panelPage>
+</amx:view>
